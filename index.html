@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hochzeit</title>
+  <title>Hochzeit – Login</title>
   <style>
     :root {
       --primary: #d4a373;
@@ -27,90 +27,23 @@
     }
     
     .container {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 500px;
+      margin: 5rem auto;
       padding: 2rem;
-    }
-    
-    header {
       text-align: center;
-      margin-bottom: 3rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     
     h1 {
-      font-size: 3rem;
       color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-    
-    .subtitle {
-      font-size: 1.2rem;
-      color: var(--primary);
-      font-style: italic;
-    }
-    
-    section {
-      margin-bottom: 3rem;
-      padding: 1.5rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    section h2 {
-      color: var(--accent);
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-    
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    
-    .info-item {
-      text-align: center;
-      padding: 1rem;
-      background: var(--secondary);
-      border-radius: 8px;
-    }
-    
-    .info-item h3 {
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-    
-    .agenda {
-      margin-top: 1rem;
-    }
-    
-    .agenda-item {
       margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid #eee;
-    }
-    
-    .agenda-item:last-child {
-      border-bottom: none;
-    }
-    
-    .time {
-      font-weight: bold;
-      color: var(--primary);
-    }
-    
-    form {
-      max-width: 600px;
-      margin: 0 auto;
     }
     
     .form-group {
       margin-bottom: 1.5rem;
+      text-align: left;
     }
     
     label {
@@ -120,19 +53,13 @@
       color: var(--accent);
     }
     
-    input[type="text"],
-    textarea {
+    input[type="password"] {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ddd;
       border-radius: 4px;
       font-family: inherit;
       font-size: 1rem;
-    }
-    
-    textarea {
-      min-height: 100px;
-      resize: vertical;
     }
     
     button {
@@ -143,109 +70,143 @@
       font-size: 1rem;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s;
-      display: block;
-      margin: 0 auto;
+      width: 100%;
     }
     
     button:hover {
       background-color: var(--primary);
     }
     
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding: 1rem;
-      color: #666;
+    .error {
+      color: #d32f2f;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
       font-size: 0.9rem;
     }
     
-    @media (max-width: 600px) {
-      .container {
-        padding: 1rem;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-      
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
+    /* Hauptseite (versteckt bis Login) */
+    #main-content {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Unsere Hochzeit</h1>
-      <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
-    </header>
-
-    <section id="info">
-      <h2>Wichtige Informationen</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>📅 Datum</h3>
-          <p>Samstag, 15. August 2026</p>
-        </div>
-        <div class="info-item">
-          <h3>⏰ Uhrzeit</h3>
-          <p>14:00 Uhr</p>
-        </div>
-        <div class="info-item">
-          <h3>📍 Ort</h3>
-          <p>Schlossgarten<br>Musterstraße 123<br>12345 Musterstadt</p>
-        </div>
+  <!-- Login-Maske -->
+  <div id="login-screen" class="container">
+    <h1>Willkommen zur Hochzeit</h1>
+    <p>Bitte gib das Passwort ein, um Zugang zu erhalten.</p>
+    
+    <form id="login-form">
+      <div class="form-group">
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" required />
       </div>
-    </section>
-
-    <section id="agenda">
-      <h2>Tagesablauf</h2>
-      <div class="agenda">
-        <div class="agenda-item">
-          <p><span class="time">14:00 Uhr</span> – Empfang mit Sekt und kleinen Snacks</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">15:00 Uhr</span> – Trauung im Schlossgarten</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">16:00 Uhr</span> – Sektempfang und Fototermin</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">17:30 Uhr</span> – Festliches Abendessen</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">20:00 Uhr</span> – Party mit Musik und Tanz</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">Open End</span> – Ausklang</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="rsvp">
-      <h2>Rückmeldung</h2>
-      <p>Bitte teile uns bis zum 1. Juli 2026 mit, ob du dabei bist und ob du Allergien oder besondere Ernährungswünsche hast.</p>
-
-      <form name="Rückmeldung" netlify method="POST">
-        <div class="form-group">
-          <label for="name">Dein Name:</label>
-          <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
-        </div>
-        
-        <div class="form-group">
-          <label for="allergies">Allergien oder Ernährungswünsche:</label>
-          <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, vegan, Nussallergie..."></textarea>
-        </div>
-        
-        <button type="submit">Rückmeldung absenden</button>
-      </form>
-    </section>
-
-    <footer>
-      <p>© 2026 | Wir freuen uns auf euch!</p>
-    </footer>
+      <div id="error-message" class="error"></div>
+      <button type="submit">Eintritt</button>
+    </form>
   </div>
+
+  <!-- Hauptseite (versteckt) -->
+  <div id="main-content">
+    <div class="container">
+      <header>
+        <h1>Unsere Hochzeit</h1>
+        <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
+      </header>
+
+      <section id="info">
+        <h2>Wichtige Informationen</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <h3>📅 Datum</h3>
+            <p>Samstag, 15. August 2026</p>
+          </div>
+          <div class="info-item">
+            <h3>⏰ Uhrzeit</h3>
+            <p>14:00 Uhr</p>
+          </div>
+          <div class="info-item">
+            <h3>📍 Ort</h3>
+            <p>Schlossgarten<br>Musterstraße 123<br>12345 Musterstadt</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="agenda">
+        <h2>Tagesablauf</h2>
+        <div class="agenda">
+          <div class="agenda-item">
+            <p><span class="time">14:00 Uhr</span> – Empfang mit Sekt und kleinen Snacks</p>
+          </div>
+          <div class="agenda-item">
+            <p><span class="time">15:00 Uhr</span> – Trauung im Schlossgarten</p>
+          </div>
+          <div class="agenda-item">
+            <p><span class="time">16:00 Uhr</span> – Sektempfang und Fototermin</p>
+          </div>
+          <div class="agenda-item">
+            <p><span class="time">17:30 Uhr</span> – Festliches Abendessen</p>
+          </div>
+          <div class="agenda-item">
+            <p><span class="time">20:00 Uhr</span> – Party mit Musik und Tanz</p>
+          </div>
+          <div class="agenda-item">
+            <p><span class="time">Open End</span> – Ausklang</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="rsvp">
+        <h2>Rückmeldung</h2>
+        <p>Bitte teile uns bis zum 1. Juli 2026 mit, ob du dabei bist und ob du Allergien oder besondere Ernährungswünsche hast.</p>
+        
+        <form name="Rückmeldung" netlify method="POST">
+          <div class="form-group">
+            <label for="name">Dein Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
+          </div>
+          
+          <div class="form-group">
+            <label for="allergies">Allergien oder Ernährungswünsche:</label>
+            <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, vegan, Nussallergie..."></textarea>
+          </div>
+          
+          <button type="submit">Rückmeldung absenden</button>
+        </form>
+      </section>
+
+      <footer>
+        <p>© 2026 | Wir freuen uns auf euch!</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // 🔑 Hier dein Passwort eintragen (z. B. "Hochzeit2026")
+    const CORRECT_PASSWORD = "DEIN_PASSWORT_HIER";
+
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('error-message');
+
+      if (password === CORRECT_PASSWORD) {
+        // Login erfolgreich – zeige Hauptseite
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        // Optional: URL aktualisieren, um Direktzugriff zu ermöglichen
+        window.history.pushState({}, '', window.location.pathname + '?auth=1');
+      } else {
+        // Falsches Passwort
+        errorMessage.textContent = "Falsches Passwort. Bitte versuche es erneut.";
+      }
+    });
+
+    // Prüfe, ob bereits autorisiert (für Page Reload)
+    if (window.location.search.includes('auth=1')) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    }
+  </script>
 </body>
 </html>
