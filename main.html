@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unsere Hochzeit</title>
+  <style>
+    /* Hier deinen bisherigen CSS-Code einfügen */
+    :root {
+      --primary: #d4a373;
+      --secondary: #f8e8d4;
+      --dark: #2c2c2c;
+      --light: #f5f5f5;
+      --accent: #8b4513;
+    }
+    body {
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+    /* ... (restlicher CSS-Code von vorher) ... */
+  </style>
+</head>
+<body>
+  <script>
+    // Prüfe, ob User authentifiziert ist
+    fetch('/.netlify/functions/check-auth', {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (!response.ok) {
+        window.location.href = '/index.html';
+      }
+    });
+  </script>
+
+  <!-- Hier deinen bisherigen HTML-Code für die Hochzeitsseite einfügen -->
+  <div class="container">
+    <header>
+      <h1>Unsere Hochzeit</h1>
+      <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
+    </header>
+    <!-- ... (restlicher HTML-Code) ... -->
+  </div>
+</body>
+</html>

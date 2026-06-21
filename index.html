@@ -5,208 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hochzeit – Login</title>
   <style>
-    :root {
-      --primary: #d4a373;
-      --secondary: #f8e8d4;
-      --dark: #2c2c2c;
-      --light: #f5f5f5;
-      --accent: #8b4513;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
     body {
       font-family: 'Georgia', serif;
-      line-height: 1.6;
-      color: var(--dark);
-      background-color: var(--light);
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
-    
     .container {
       max-width: 500px;
-      margin: 5rem auto;
       padding: 2rem;
       text-align: center;
       background: white;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    
-    h1 {
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    
-    input[type="password"] {
+    h1 { color: #8b4513; }
+    input, button {
       width: 100%;
       padding: 0.75rem;
+      margin: 0.5rem 0;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-family: inherit;
-      font-size: 1rem;
     }
-    
     button {
-      background-color: var(--accent);
+      background: #8b4513;
       color: white;
-      border: none;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      border-radius: 4px;
       cursor: pointer;
-      width: 100%;
     }
-    
-    button:hover {
-      background-color: var(--primary);
-    }
-    
-    .error {
-      color: #d32f2f;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-    
-    /* Hauptseite (versteckt bis Login) */
-    #main-content {
-      display: none;
-    }
+    .error { color: red; }
   </style>
 </head>
 <body>
-  <!-- Login-Maske -->
-  <div id="login-screen" class="container">
+  <div class="container">
     <h1>Willkommen zur Hochzeit</h1>
-    <p>Bitte gib das Passwort ein, um Zugang zu erhalten.</p>
-    
+    <p>Bitte gib das Passwort ein:</p>
     <form id="login-form">
-      <div class="form-group">
-        <label for="password">Passwort:</label>
-        <input type="password" id="password" name="password" required />
-      </div>
-      <div id="error-message" class="error"></div>
+      <input type="password" id="password" required />
       <button type="submit">Eintritt</button>
+      <p id="error" class="error"></p>
     </form>
   </div>
 
-  <!-- Hauptseite (versteckt) -->
-  <div id="main-content">
-    <div class="container">
-      <header>
-        <h1>Unsere Hochzeit</h1>
-        <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
-      </header>
-
-      <section id="info">
-        <h2>Wichtige Informationen</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <h3>📅 Datum</h3>
-            <p>Samstag, 15. August 2026</p>
-          </div>
-          <div class="info-item">
-            <h3>⏰ Uhrzeit</h3>
-            <p>14:00 Uhr</p>
-          </div>
-          <div class="info-item">
-            <h3>📍 Ort</h3>
-            <p>Schlossgarten<br>Musterstraße 123<br>12345 Musterstadt</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="agenda">
-        <h2>Tagesablauf</h2>
-        <div class="agenda">
-          <div class="agenda-item">
-            <p><span class="time">14:00 Uhr</span> – Empfang mit Sekt und kleinen Snacks</p>
-          </div>
-          <div class="agenda-item">
-            <p><span class="time">15:00 Uhr</span> – Trauung im Schlossgarten</p>
-          </div>
-          <div class="agenda-item">
-            <p><span class="time">16:00 Uhr</span> – Sektempfang und Fototermin</p>
-          </div>
-          <div class="agenda-item">
-            <p><span class="time">17:30 Uhr</span> – Festliches Abendessen</p>
-          </div>
-          <div class="agenda-item">
-            <p><span class="time">20:00 Uhr</span> – Party mit Musik und Tanz</p>
-          </div>
-          <div class="agenda-item">
-            <p><span class="time">Open End</span> – Ausklang</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="rsvp">
-        <h2>Rückmeldung</h2>
-        <p>Bitte teile uns bis zum 1. Juli 2026 mit, ob du dabei bist und ob du Allergien oder besondere Ernährungswünsche hast.</p>
-        
-        <form name="Rückmeldung" netlify method="POST">
-          <div class="form-group">
-            <label for="name">Dein Name:</label>
-            <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
-          </div>
-          
-          <div class="form-group">
-            <label for="allergies">Allergien oder Ernährungswünsche:</label>
-            <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, vegan, Nussallergie..."></textarea>
-          </div>
-          
-          <button type="submit">Rückmeldung absenden</button>
-        </form>
-      </section>
-
-      <footer>
-        <p>© 2026 | Wir freuen uns auf euch!</p>
-      </footer>
-    </div>
-  </div>
-
   <script>
-    // 🔑 Hier dein Passwort eintragen (z. B. "Hochzeit2026")
-    const CORRECT_PASSWORD = "DEIN_PASSWORT_HIER";
-
-    document.getElementById('login-form').addEventListener('submit', function(e) {
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const password = document.getElementById('password').value;
-      const errorMessage = document.getElementById('error-message');
+      const error = document.getElementById('error');
 
-      if (password === CORRECT_PASSWORD) {
-        // Login erfolgreich – zeige Hauptseite
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        // Optional: URL aktualisieren, um Direktzugriff zu ermöglichen
-        window.history.pushState({}, '', window.location.pathname + '?auth=1');
-      } else {
-        // Falsches Passwort
-        errorMessage.textContent = "Falsches Passwort. Bitte versuche es erneut.";
+      try {
+        const response = await fetch('/.netlify/functions/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          window.location.href = '/main.html';
+        } else {
+          error.textContent = 'Falsches Passwort';
+        }
+      } catch (err) {
+        error.textContent = 'Fehler beim Login';
       }
     });
-
-    // Prüfe, ob bereits autorisiert (für Page Reload)
-    if (window.location.search.includes('auth=1')) {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-    }
   </script>
 </body>
 </html>
