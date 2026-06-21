@@ -126,10 +126,10 @@
         const data = await response.json();
 
         if (data.success) {
-          alert('Danke für deine Rückmeldung! ✅');
+          alert('Danke für deine Rückmeldung!');
           e.target.reset();
         } else {
-          alert('Fehler beim Speichern: ' + (data.error || 'Unbekannter Fehler'));
+          alert('Fehler beim Speichern: ' + (formData || 'Unbekannter Fehler'));
         }
       } catch (error) {
         alert('Netzwerkfehler: ' + error.message);
