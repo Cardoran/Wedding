@@ -1,6 +1,3 @@
-// Passwort hier eintragen
-const CORRECT_PASSWORD = "DEIN_PASSWORT_HIER";
-
 exports.handler = async (event, context) => {
   if (event.httpMethod !== "POST") {
     return {
@@ -9,10 +6,20 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // 🔑 Passwort aus Environment Variable lesen
+  const CORRECT_PASSWORD = process.env.LOGIN_PASSWORD;
+
+  if (!CORRECT_PASSWORD) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Server nicht korrekt konfiguriert" })
+    };
+  }
+
   const { password } = JSON.parse(event.body);
 
   if (password === CORRECT_PASSWORD) {
-    // Setze Cookie für 30 Tage
+    // Login erfolgreich – setze Cookie
     return {
       statusCode: 200,
       headers: {
@@ -22,6 +29,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ success: true })
     };
   } else {
+    // Falsches Passwort
     return {
       statusCode: 401,
       body: JSON.stringify({ success: false, error: "Falsches Passwort" })
