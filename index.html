@@ -19,23 +19,23 @@
       position: relative;
     }
 
-    /* Goldene, verspielte Ornamente */
+    /* Verspielte, geschwungene goldene Ornamente */
     .ornament {
       position: absolute;
-      width: 150px;
-      height: 150px;
-      opacity: 0.25;
+      width: 180px;
+      height: 180px;
+      opacity: 0.28;
       z-index: 1;
     }
 
     .top-left {
-      top: 15px;
-      left: 15px;
+      top: 10px;
+      left: 10px;
     }
 
     .bottom-right {
-      bottom: 15px;
-      right: 15px;
+      bottom: 10px;
+      right: 10px;
       transform: rotate(180deg);
     }
 
@@ -118,20 +118,28 @@
 
 <body>
 
-  <!-- Ornament oben links -->
+  <!-- Schnörkel oben links -->
   <svg class="ornament top-left" viewBox="0 0 200 200">
-    <path d="M30 160 C70 120, 110 80, 160 30"
-          stroke="#c8a96a" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <circle cx="60" cy="150" r="7" fill="#d9c39a"/>
-    <circle cx="100" cy="110" r="5" fill="#bfa06a"/>
+    <path d="M20 150 
+             C40 120, 80 110, 90 140
+             C110 180, 160 160, 150 110
+             C140 70, 100 60, 70 80
+             C40 100, 30 60, 60 40"
+          stroke="#c8a96a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="55" cy="135" r="6" fill="#d9c39a"/>
+    <circle cx="120" cy="95" r="5" fill="#bfa06a"/>
   </svg>
 
-  <!-- Ornament unten rechts -->
+  <!-- Schnörkel unten rechts -->
   <svg class="ornament bottom-right" viewBox="0 0 200 200">
-    <path d="M30 160 C70 120, 110 80, 160 30"
-          stroke="#c8a96a" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <circle cx="60" cy="150" r="7" fill="#d9c39a"/>
-    <circle cx="100" cy="110" r="5" fill="#bfa06a"/>
+    <path d="M20 150 
+             C40 120, 80 110, 90 140
+             C110 180, 160 160, 150 110
+             C140 70, 100 60, 70 80
+             C40 100, 30 60, 60 40"
+          stroke="#c8a96a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="55" cy="135" r="6" fill="#d9c39a"/>
+    <circle cx="120" cy="95" r="5" fill="#bfa06a"/>
   </svg>
 
   <div class="container">
