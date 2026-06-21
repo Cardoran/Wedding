@@ -116,6 +116,9 @@
         allergies: document.getElementById('allergies').value
       };
 
+    // 👇 HIER: Zeige die Daten in der Browser-Console an
+    console.log('📤 Gesendete Daten:', formData);
+
       try {
         const response = await fetch('/.netlify/functions/save-rsvp', {
           method: 'POST',
