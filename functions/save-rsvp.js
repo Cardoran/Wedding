@@ -11,35 +11,50 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 exports.handler = async (event) => {
-  console.log('📥 Eingehende Anfrage:', event.httpMethod, new Date().toISOString());
-
   if (event.httpMethod !== 'POST') {
-    console.log('❌ Falsche Methode:', event.httpMethod);
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
   }
 
   try {
-    const { name, allergies } = JSON.parse(event.body);
-    console.log('📝 Neue Rückmeldung:', { name, allergies: allergies?.substring(0, 20) + '...' });
+    // Empfange alle Felder: name, attendance, allergies
+    const { name, attendance, allergies } = JSON.parse(event.body);
+
+    // Validierung
+    if (!name || !attendance) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Name und Teilnahme-Status sind Pflichtfelder' })
+      };
+    }
 
     // Speichere in Supabase
     const { data, error } = await supabase
       .from('rsvps')
-      .insert([{ name, allergies }]);
+      .insert([{
+        name: name.trim(),
+        attendance: attendance, // "yes" oder "no"
+        allergies: allergies?.trim() || null // Optional: Leere Strings als null speichern
+      }]);
 
     if (error) {
-      console.error('❌ Supabase Fehler:', error);
-      throw error;
+      console.error('Supabase Fehler:', error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Fehler beim Speichern in der Datenbank' })
+      };
     }
 
-    console.log('✅ Erfolgreich gespeichert:', data);
+    console.log('Erfolgreich gespeichert:', { name, attendance });
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ success: true, data })
     };
   } catch (error) {
-    console.error('❌ Server-Fehler:', error);
+    console.error('Server-Fehler:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })

@@ -71,32 +71,30 @@
     <section id="rsvp">
       <h2>Rückmeldung</h2>
       <p>Bitte teile uns bis zum <strong>30. April 2027</strong> mit, ob du dabei bist.<br>
-      Das Essen wird rein vegetarisch/vegan sein.</p>
+      Das Essen wird rein vegetarisch/vegan sein.<br>
+      Bitte Begleitpersonen getrennt eintragen, das vereinfacht uns die Übersicht.</p>
 
       <form id="rsvp-form">
-        <div class="form-group">
-          <label>Teilnahme:</label>
-          <div style="margin-top: 0.5rem;">
-            <label style="display: inline-block; margin-right: 1rem;">
-              <input type="radio" name="attendance" value="yes" checked required /> Ich komme
-            </label>
-            <label style="display: inline-block;">
-              <input type="radio" name="attendance" value="no" required /> Ich komme nicht
-            </label>
-          </div>
-        </div>
 
         <div class="form-group">
           <label for="name">Vor- und Nachname:</label>
           <input type="text" id="name" name="name" required placeholder="Tina Testperson" />
         </div>
+        
+        <div class="form-group">
+            <div style="margin-top: 0.5rem;">
+              <label style="display: inline-block; margin-right: 1rem;">
+                <input type="radio" name="attendance" value="yes" checked required /> Ich komme
+              </label>
+              <label style="display: inline-block;">
+                <input type="radio" name="attendance" value="no" required /> Ich komme nicht
+              </label>
+            </div>
+          </div>
 
         <div class="form-group">
           <label for="allergies">Allergien (falls zutreffend):</label>
           <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, laktosefrei, Nussallergie..."></textarea>
-          <p style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">
-            Nur ausfüllen, wenn du Allergien hast – das Essen ist ohnehin vegetarisch/vegan.
-          </p>
         </div>
 
         <button type="submit">Rückmeldung absenden</button>
