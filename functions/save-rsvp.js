@@ -16,7 +16,9 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-    const { name, attendance, allergies } = body;
+    const name = body.name;
+    const attendance = body.attendance;
+    const allergies = body.allergies ?? "";
 
     // Validierung
     if (!name || !attendance) {
