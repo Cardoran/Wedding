@@ -10,7 +10,7 @@
       margin: 0;
       padding: 0;
       font-family: "Georgia", serif;
-      background: #faf7f2;
+      background: #f8f3e9; /* Creme */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,37 +19,37 @@
       position: relative;
     }
 
-    /* Ornamente – kleiner, verspielter, garantiert sichtbar */
+    /* Goldene, verspielte Ornamente */
     .ornament {
       position: absolute;
-      width: 140px;
-      height: 140px;
-      opacity: 0.22;
+      width: 150px;
+      height: 150px;
+      opacity: 0.25;
       z-index: 1;
     }
 
     .top-left {
-      top: 10px;
-      left: 10px;
+      top: 15px;
+      left: 15px;
     }
 
     .bottom-right {
-      bottom: 10px;
-      right: 10px;
+      bottom: 15px;
+      right: 15px;
       transform: rotate(180deg);
     }
 
     .container {
       position: relative;
       z-index: 10;
-      background: white;
+      background: #fffdf8; /* Eierschale */
       padding: 3rem 2.5rem;
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
       max-width: 380px;
       width: 90%;
       text-align: center;
-      border: 2px solid #e8dfd3;
+      border: 2px solid #e7d9c5;
       animation: fadeIn 0.8s ease-out;
     }
 
@@ -59,14 +59,14 @@
     }
 
     h1 {
-      font-size: 2.3rem;
-      color: #8b5e34;
+      font-size: 2.4rem;
+      color: #7a5a3a;
       margin-bottom: 0.5rem;
       letter-spacing: 1px;
     }
 
     p {
-      color: #6b4f3a;
+      color: #7a5a3a;
       margin-bottom: 1.5rem;
       font-size: 1.1rem;
     }
@@ -75,28 +75,37 @@
       width: 100%;
       padding: 0.9rem;
       margin: 0.5rem 0 1rem;
-      border: 1.5px solid #d8c7b8;
-      border-radius: 8px;
+      border: 1.5px solid #d9c39a;
+      border-radius: 10px;
       font-size: 1rem;
-      background: #fdfbf8;
+      background: #fdfaf4;
       box-sizing: border-box;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #c8a96a;
+      box-shadow: 0 0 10px rgba(200,169,106,0.4);
     }
 
     button {
       width: 100%;
       padding: 0.9rem;
-      background: #b08968;
+      background: linear-gradient(135deg, #c8a96a, #bfa06a);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
     }
 
     button:hover {
-      background: #8b5e34;
+      background: linear-gradient(135deg, #bfa06a, #a88955);
       transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(200,169,106,0.5);
     }
 
     .error {
@@ -111,16 +120,18 @@
 
   <!-- Ornament oben links -->
   <svg class="ornament top-left" viewBox="0 0 200 200">
-    <path d="M30 160 C70 120, 110 80, 160 30" stroke="#8b5e34" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <circle cx="60" cy="150" r="7" fill="#d4a373"/>
-    <circle cx="100" cy="110" r="5" fill="#b08968"/>
+    <path d="M30 160 C70 120, 110 80, 160 30"
+          stroke="#c8a96a" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="60" cy="150" r="7" fill="#d9c39a"/>
+    <circle cx="100" cy="110" r="5" fill="#bfa06a"/>
   </svg>
 
   <!-- Ornament unten rechts -->
   <svg class="ornament bottom-right" viewBox="0 0 200 200">
-    <path d="M30 160 C70 120, 110 80, 160 30" stroke="#8b5e34" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <circle cx="60" cy="150" r="7" fill="#d4a373"/>
-    <circle cx="100" cy="110" r="5" fill="#b08968"/>
+    <path d="M30 160 C70 120, 110 80, 160 30"
+          stroke="#c8a96a" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <circle cx="60" cy="150" r="7" fill="#d9c39a"/>
+    <circle cx="100" cy="110" r="5" fill="#bfa06a"/>
   </svg>
 
   <div class="container">
