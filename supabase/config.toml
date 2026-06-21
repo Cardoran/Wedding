@@ -1,0 +1,10 @@
+[global]
+project_id = "gheogtboxaisetnmlcsu"  # Finde es in Supabase Dashboard → Project Settings → General
+api_port = 3000
+db_port = 5432
+
+[db]
+host = "db.dein-supabase-projekt-ref.supabase.co"
+port = 5432
+user = "postgres"
+database = "postgres"

@@ -1,3 +1,14 @@
 [build]
-  functions = "functions"
   publish = ""
+  functions = "functions"
+
+# Automatische Redirects
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/main"
+  to = "/main.html"
+  status = 200
