@@ -96,6 +96,10 @@
     font-weight: bold;
     color: var(--primary);
   }
+
+  .attendance-no #allergies-field {
+    display: none;
+  }
   
   form {
     max-width: 600px;

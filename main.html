@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unsere Hochzeit</title>
-  <link rel="stylesheet" href="styles.css" />  <!-- ← CSS-Datei einbinden -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <script>
@@ -23,12 +23,13 @@
       <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
     </header>
 
+    <!-- ========== WICHTIGE INFOS ========== -->
     <section id="info">
       <h2>Wichtige Informationen</h2>
       <div class="info-grid">
         <div class="info-item">
           <h3>📅 Datum</h3>
-          <p>Samstag, 15. August 2026</p>
+          <p>Samstag, 29. Mai 2027</p>
         </div>
         <div class="info-item">
           <h3>⏰ Uhrzeit</h3>
@@ -36,80 +37,99 @@
         </div>
         <div class="info-item">
           <h3>📍 Ort</h3>
-          <p>Schlossgarten<br>Musterstraße 123<br>12345 Musterstadt</p>
+          <p>Hochzeitsturm Darmstadt<br>Mathildenhöhe 2<br>64293 Darmstadt</p>
         </div>
       </div>
     </section>
 
+    <!-- ========== TAGESABLAUF ========== -->
     <section id="agenda">
       <h2>Tagesablauf</h2>
       <div class="agenda">
         <div class="agenda-item">
-          <p><span class="time">13:00 Uhr</span> – Empfang mit Sekt und kleinen Snacks</p>
+          <p><span class="time">13:00 Uhr</span> – Trauung im Hochzeitsturm (Mathildenhöhe 2, 64293 Darmstadt)</p>
         </div>
         <div class="agenda-item">
-          <p><span class="time">14:00 Uhr</span> – Trauung im Schlossgarten</p>
+          <p><span class="time">ab ca. 13:45 Uhr</span> – Sektempfang vor dem Hochzeitsturm mit Snacks (Mathildenhöhe 2, 64293 Darmstadt)</p>
         </div>
         <div class="agenda-item">
-          <p><span class="time">15:00 Uhr</span> – Sektempfang und Fototermin</p>
+          <p><span class="time">ab 15:00 Uhr</span> – Eintreffen am Oberwaldhaus mit Getränken und Snacks (Dieburger Landstraße 24, 64293 Darmstadt)</p>
         </div>
         <div class="agenda-item">
-          <p><span class="time">16:30 Uhr</span> – Festliches Abendessen</p>
+          <p><span class="time">ca. 19:00 Uhr</span> – Abendessen (Oberwaldhaus)</p>
         </div>
         <div class="agenda-item">
-          <p><span class="time">19:00 Uhr</span> – Party mit Musik und Tanz</p>
+          <p><span class="time">danach irgendwann</span> – Party oder so (Oberwaldhaus)</p>
         </div>
         <div class="agenda-item">
-          <p><span class="time">Open End</span> – Ausklang</p>
+          <p><span class="time">03:00 Uhr</span> – Ende (länger dürfen wir nicht)</p>
         </div>
       </div>
     </section>
 
+    <!-- ========== RÜCKMELDUNG ========== -->
     <section id="rsvp">
       <h2>Rückmeldung</h2>
-      <p>Bitte teile uns bis zum 1. Juli 2026 mit, ob du dabei bist und ob du Allergien oder besondere Ernährungswünsche hast.</p>
+      <p>Bitte teile uns bis zum <strong>30. April 2027</strong> mit, ob du dabei bist.<br>
+      Das Essen wird rein vegetarisch/vegan sein.</p>
 
       <form id="rsvp-form">
         <div class="form-group">
-          <label for="name">Dein Name:</label>
-          <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
+          <label>Teilnahme:</label>
+          <div style="margin-top: 0.5rem;">
+            <label style="display: inline-block; margin-right: 1rem;">
+              <input type="radio" name="attendance" value="yes" checked required /> Ich komme
+            </label>
+            <label style="display: inline-block;">
+              <input type="radio" name="attendance" value="no" required /> Ich komme nicht
+            </label>
+          </div>
         </div>
-      
+
         <div class="form-group">
-          <label for="allergies">Allergien oder Ernährungswünsche:</label>
-          <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, vegan, Nussallergie..."></textarea>
+          <label for="name">Vor- und Nachname:</label>
+          <input type="text" id="name" name="name" required placeholder="Tina Testperson" />
         </div>
-      
+
+        <div class="form-group">
+          <label for="allergies">Allergien (falls zutreffend):</label>
+          <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, laktosefrei, Nussallergie..."></textarea>
+          <p style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">
+            Nur ausfüllen, wenn du Allergien hast – das Essen ist ohnehin vegetarisch/vegan.
+          </p>
+        </div>
+
         <button type="submit">Rückmeldung absenden</button>
       </form>
     </section>
 
     <footer>
-      <p>© 2026 | Wir freuen uns auf euch!</p>
+      <p>© 2027 | Wir freuen uns auf euch!</p>
     </footer>
   </div>
 
   <script>
     document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-  
+
       const formData = {
         name: document.getElementById('name').value,
+        attendance: document.querySelector('input[name="attendance"]:checked').value,
         allergies: document.getElementById('allergies').value
       };
-  
+
       try {
         const response = await fetch('/.netlify/functions/save-rsvp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-  
+
         const data = await response.json();
-  
+
         if (data.success) {
           alert('Danke für deine Rückmeldung! ✅');
-          e.target.reset(); // Formular zurücksetzen
+          e.target.reset();
         } else {
           alert('Fehler beim Speichern: ' + (data.error || 'Unbekannter Fehler'));
         }
