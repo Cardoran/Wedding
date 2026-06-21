@@ -19,53 +19,38 @@
       position: relative;
     }
 
-    /* Florale SVG-Ornamente – jetzt mit z-index und kleineren Maßen */
+    /* Florale Ornamente als echte HTML-Elemente */
     .ornament {
       position: absolute;
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       opacity: 0.18;
-      pointer-events: none;
       z-index: 1;
-      background-repeat: no-repeat;
-      background-size: contain;
     }
 
-    .ornament.top-left {
+    .top-left {
       top: 0;
       left: 0;
       transform: translate(-20px, -20px);
-      background-image: url("data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
-          <path d='M20 160 C60 120, 100 80, 160 20' stroke='%238b5e34' stroke-width='5' fill='none' stroke-linecap='round'/>
-          <circle cx='50' cy='150' r='7' fill='%23d4a373'/>
-          <circle cx='90' cy='110' r='5' fill='%23b08968'/>
-        </svg>");
     }
 
-    .ornament.bottom-right {
+    .bottom-right {
       bottom: 0;
       right: 0;
       transform: translate(20px, 20px) rotate(180deg);
-      background-image: url("data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
-          <path d='M20 160 C60 120, 100 80, 160 20' stroke='%238b5e34' stroke-width='5' fill='none' stroke-linecap='round'/>
-          <circle cx='50' cy='150' r='7' fill='%23d4a373'/>
-          <circle cx='90' cy='110' r='5' fill='%23b08968'/>
-        </svg>");
     }
 
     .container {
       position: relative;
-      z-index: 10; /* Box liegt über den Ornamenten */
+      z-index: 10;
       background: white;
       padding: 3rem 2.5rem;
-      border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       max-width: 420px;
       width: 90%;
       text-align: center;
-      border: 1px solid #e8dfd3;
+      border: 2px solid #e8dfd3;
       animation: fadeIn 0.8s ease-out;
     }
 
@@ -76,7 +61,7 @@
 
     h1 {
       font-family: "Georgia", serif;
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       color: #8b5e34;
       margin-bottom: 0.5rem;
     }
@@ -90,7 +75,7 @@
       width: 100%;
       padding: 0.9rem;
       margin: 0.5rem 0 1rem;
-      border: 1px solid #d8c7b8;
+      border: 1.5px solid #d8c7b8;
       border-radius: 6px;
       font-size: 1rem;
       background: #fdfbf8;
@@ -105,11 +90,12 @@
       border-radius: 6px;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     button:hover {
       background: #8b5e34;
+      transform: scale(1.03);
     }
 
     .error {
@@ -122,9 +108,19 @@
 
 <body>
 
-  <!-- Ornamente -->
-  <div class="ornament top-left"></div>
-  <div class="ornament bottom-right"></div>
+  <!-- Ornament oben links -->
+  <svg class="ornament top-left" viewBox="0 0 200 200">
+    <path d="M20 160 C60 120, 100 80, 160 20" stroke="#8b5e34" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="50" cy="150" r="8" fill="#d4a373"/>
+    <circle cx="90" cy="110" r="6" fill="#b08968"/>
+  </svg>
+
+  <!-- Ornament unten rechts -->
+  <svg class="ornament bottom-right" viewBox="0 0 200 200">
+    <path d="M20 160 C60 120, 100 80, 160 20" stroke="#8b5e34" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="50" cy="150" r="8" fill="#d4a373"/>
+    <circle cx="90" cy="110" r="6" fill="#b08968"/>
+  </svg>
 
   <div class="container">
     <h1>Willkommen zur Hochzeit</h1>
