@@ -26,8 +26,10 @@ exports.handler = async (event) => {
       };
     }
 
-    // 🔥 FIX: allergies immer als null oder String speichern
-    const sanitizedAllergies = allergies?.trim() || null;
+    const sanitizedAllergies =
+        typeof allergies === "string" && allergies.trim() !== ""
+            ? allergies.trim()
+            : null;
 
     const { error } = await supabase
       .from('rsvps')
