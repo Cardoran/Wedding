@@ -19,30 +19,40 @@
       position: relative;
     }
 
-    /* Zarte florale Ornamente */
+    /* Florale SVG-Ornamente */
     body::before,
     body::after {
       content: "";
       position: absolute;
-      width: 300px;
-      height: 300px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 0.15;
+      width: 260px;
+      height: 260px;
+      opacity: 0.12;
       pointer-events: none;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
 
     body::before {
-      top: -40px;
-      left: -40px;
-      background-image: url('https://i.imgur.com/2yaf2Qb.png');
+      top: -20px;
+      left: -20px;
+      background-image: url("data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
+          <path d='M10 150 C40 120, 80 80, 150 10' stroke='%238b5e34' stroke-width='6' fill='none' stroke-linecap='round'/>
+          <circle cx='40' cy='140' r='8' fill='%23b08968'/>
+          <circle cx='80' cy='100' r='6' fill='%23d4a373'/>
+        </svg>");
     }
 
     body::after {
-      bottom: -40px;
-      right: -40px;
-      background-image: url('https://i.imgur.com/2yaf2Qb.png');
+      bottom: -20px;
+      right: -20px;
       transform: rotate(180deg);
+      background-image: url("data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
+          <path d='M10 150 C40 120, 80 80, 150 10' stroke='%238b5e34' stroke-width='6' fill='none' stroke-linecap='round'/>
+          <circle cx='40' cy='140' r='8' fill='%23b08968'/>
+          <circle cx='80' cy='100' r='6' fill='%23d4a373'/>
+        </svg>");
     }
 
     .container {
