@@ -4,46 +4,117 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hochzeit – Login</title>
+
   <style>
     body {
-      font-family: 'Georgia', serif;
-      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      font-family: "Georgia", serif;
+      background: #faf7f2;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      overflow: hidden;
+      position: relative;
     }
+
+    /* Zarte florale Ornamente */
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    body::before {
+      top: -40px;
+      left: -40px;
+      background-image: url('https://i.imgur.com/2yaf2Qb.png');
+    }
+
+    body::after {
+      bottom: -40px;
+      right: -40px;
+      background-image: url('https://i.imgur.com/2yaf2Qb.png');
+      transform: rotate(180deg);
+    }
+
     .container {
-      max-width: 500px;
-      padding: 2rem;
-      text-align: center;
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 3rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid #e8dfd3;
+      animation: fadeIn 0.8s ease-out;
     }
-    h1 { color: #8b4513; }
-    input, button {
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: "Georgia", serif;
+      font-size: 2rem;
+      color: #8b5e34;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #6b4f3a;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
       width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      padding: 0.9rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #d8c7b8;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: #fdfbf8;
     }
+
     button {
-      background: #8b4513;
+      width: 100%;
+      padding: 0.9rem;
+      background: #b08968;
       color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .error { color: red; }
+
+    button:hover {
+      background: #8b5e34;
+    }
+
+    .error {
+      color: #b33a3a;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Willkommen zur Hochzeit</h1>
     <p>Bitte gib das Passwort ein:</p>
+
     <form id="login-form">
-      <input type="password" id="password" required />
+      <input type="password" id="password" placeholder="Passwort" required />
       <button type="submit">Eintritt</button>
       <p id="error" class="error"></p>
     </form>
