@@ -69,17 +69,17 @@
       <h2>Rückmeldung</h2>
       <p>Bitte teile uns bis zum 1. Juli 2026 mit, ob du dabei bist und ob du Allergien oder besondere Ernährungswünsche hast.</p>
 
-      <form name="Rückmeldung" netlify method="POST">
+      <form id="rsvp-form">
         <div class="form-group">
           <label for="name">Dein Name:</label>
           <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
         </div>
-
+      
         <div class="form-group">
           <label for="allergies">Allergien oder Ernährungswünsche:</label>
           <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, vegan, Nussallergie..."></textarea>
         </div>
-
+      
         <button type="submit">Rückmeldung absenden</button>
       </form>
     </section>
@@ -88,5 +88,35 @@
       <p>© 2026 | Wir freuen uns auf euch!</p>
     </footer>
   </div>
+
+  <script>
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      const formData = {
+        name: document.getElementById('name').value,
+        allergies: document.getElementById('allergies').value
+      };
+  
+      try {
+        const response = await fetch('/.netlify/functions/save-rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+  
+        const data = await response.json();
+  
+        if (data.success) {
+          alert('Danke für deine Rückmeldung! ✅');
+          e.target.reset(); // Formular zurücksetzen
+        } else {
+          alert('Fehler beim Speichern: ' + (data.error || 'Unbekannter Fehler'));
+        }
+      } catch (error) {
+        alert('Netzwerkfehler: ' + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
