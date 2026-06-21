@@ -30,13 +30,16 @@ exports.handler = async (event) => {
       };
     }
 
+    // Allergien: Leere Strings oder undefined → null
+    const sanitizedAllergies = allergies?.trim() === '' ? null : allergies?.trim();
+
     // Speichere in Supabase
     const { data, error } = await supabase
       .from('rsvps')
       .insert([{
         name: name.trim(),
-        attendance: attendance, // "yes" oder "no"
-        allergies: allergies?.trim() || null // Optional: Leere Strings als null speichern
+        attendance: attendance,
+        allergies: sanitizedAllergies  // Jetzt immer null oder String
       }]);
 
     if (error) {
