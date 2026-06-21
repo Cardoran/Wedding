@@ -10,7 +10,7 @@
       margin: 0;
       padding: 0;
       font-family: "Georgia", serif;
-      background: #f8f3e9;
+      background: #f8f3e9; /* Creme */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,78 +19,37 @@
       position: relative;
     }
 
-    /* ---------------------------------------------------
-       GOLDENE GLITZERPUNKTE
-    --------------------------------------------------- */
-    .sparkle {
+    /* Verspielte, geschwungene goldene Ornamente */
+    .ornament {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: radial-gradient(circle, #f7e7b7, #c8a96a);
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: sparkle 2s infinite ease-in-out;
-      pointer-events: none;
+      width: 180px;
+      height: 180px;
+      opacity: 0.28;
+      z-index: 1;
     }
 
-    @keyframes sparkle {
-      0%, 100% { transform: scale(0.5); opacity: 0.4; }
-      50% { transform: scale(1.4); opacity: 1; }
+    .top-left {
+      top: 10px;
+      left: 10px;
     }
 
-    /* ---------------------------------------------------
-       BLÜTENBLÄTTER – sanft fallend
-    --------------------------------------------------- */
-    .petal {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background: #f4cbd4;
-      border-radius: 60% 40% 60% 40%;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      pointer-events: none;
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+      transform: rotate(180deg);
     }
 
-    @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    /* ---------------------------------------------------
-       MONOGRAMM L&M
-    --------------------------------------------------- */
-    .monogram {
-      position: absolute;
-      top: 40px;
-      font-family: "Tangerine", cursive;
-      font-size: 4rem;
-      color: transparent;
-      background: linear-gradient(135deg, #d9c39a, #bfa06a, #e8d7b0);
-      -webkit-background-clip: text;
-      background-clip: text;
-      text-shadow: 0 0 12px rgba(200,169,106,0.4);
-      z-index: 20;
-      letter-spacing: 4px;
-    }
-
-    /* ---------------------------------------------------
-       FLORALER GOLDENER RAHMEN
-    --------------------------------------------------- */
     .container {
       position: relative;
       z-index: 10;
-      background: #fffdf8;
+      background: #fffdf8; /* Eierschale */
       padding: 3rem 2.5rem;
       border-radius: 20px;
       max-width: 380px;
       width: 90%;
       text-align: center;
       box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-      border: 3px solid transparent;
-      background-size: cover;
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
+      border: 2px solid #e7d9c5;
       animation: fadeIn 0.8s ease-out;
     }
 
@@ -99,9 +58,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------------------------------------------------
-       TEXT & FORM
-    --------------------------------------------------- */
     h1 {
       font-size: 2.4rem;
       color: #7a5a3a;
@@ -158,40 +114,33 @@
       font-size: 0.95rem;
     }
   </style>
-
-  <!-- Google Font für das Monogramm -->
-  <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
 
-  <!-- MONOGRAMM -->
-  <div class="monogram">L & M</div>
+  <!-- Schnörkel oben links -->
+  <svg class="ornament top-left" viewBox="0 0 200 200">
+    <path d="M20 150 
+             C40 120, 80 110, 90 140
+             C110 180, 160 160, 150 110
+             C140 70, 100 60, 70 80
+             C40 100, 30 60, 60 40"
+          stroke="#c8a96a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="55" cy="135" r="6" fill="#d9c39a"/>
+    <circle cx="120" cy="95" r="5" fill="#bfa06a"/>
+  </svg>
 
-  <!-- GLITZERPUNKTE (20 Stück) -->
-  <script>
-    for (let i = 0; i < 20; i++) {
-      const s = document.createElement("div");
-      s.className = "sparkle";
-      s.style.left = Math.random() * 100 + "vw";
-      s.style.top = Math.random() * 100 + "vh";
-      s.style.animationDelay = Math.random() * 2 + "s";
-      document.body.appendChild(s);
-    }
-  </script>
-
-  <!-- BLÜTENBLÄTTER (15 Stück) -->
-  <script>
-    for (let i = 0; i < 15; i++) {
-      const p = document.createElement("div");
-      p.className = "petal";
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.animationDuration = 6 + Math.random() * 6 + "s";
-      p.style.opacity = 0.5 + Math.random() * 0.5;
-      document.body.appendChild(p);
-    }
-  </script>
+  <!-- Schnörkel unten rechts -->
+  <svg class="ornament bottom-right" viewBox="0 0 200 200">
+    <path d="M20 150 
+             C40 120, 80 110, 90 140
+             C110 180, 160 160, 150 110
+             C140 70, 100 60, 70 80
+             C40 100, 30 60, 60 40"
+          stroke="#c8a96a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="55" cy="135" r="6" fill="#d9c39a"/>
+    <circle cx="120" cy="95" r="5" fill="#bfa06a"/>
+  </svg>
 
   <div class="container">
     <h1>Willkommen zur Hochzeit</h1>
