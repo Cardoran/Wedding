@@ -14,53 +14,6 @@
     'use strict';
   
     /* ---------------------------------------------------------------------
-       0. PASSWORT-SCHUTZ
-       Liest das Passwort aus data-password am #passwordGate-Element.
-       Richtige Eingabe wird im localStorage gemerkt (kein erneutes Fragen).
-       Reiner Sichtschutz – keine echte Verschlüsselung.
-    --------------------------------------------------------------------- */
-    function initPasswordGate() {
-      var gate = document.getElementById('passwordGate');
-      if (!gate) return;
-  
-      var form = document.getElementById('passwordGateForm');
-      var input = document.getElementById('passwordInput');
-      var error = document.getElementById('passwordError');
-      var expected = gate.getAttribute('data-password') || '';
-      var KEY = 'tm_gate_ok';
-  
-      function unlock() {
-        gate.classList.add('is-unlocked');
-        document.body.style.overflow = '';
-      }
-  
-      // schon einmal korrekt eingegeben? -> direkt durchlassen
-      try {
-        if (localStorage.getItem(KEY) === '1') { unlock(); return; }
-      } catch (e) { /* localStorage gesperrt -> einfach jedes Mal fragen */ }
-  
-      document.body.style.overflow = 'hidden';
-      if (input) input.focus();
-  
-      if (!form) return;
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var value = input ? input.value.trim() : '';
-        if (value === expected) {
-          try { localStorage.setItem(KEY, '1'); } catch (e2) { /* egal */ }
-          unlock();
-        } else {
-          if (error) error.hidden = false;
-          // Wackel-Animation neu starten
-          gate.classList.remove('password-gate--error');
-          void gate.offsetWidth;
-          gate.classList.add('password-gate--error');
-          if (input) input.select();
-        }
-      });
-    }
-  
-    /* ---------------------------------------------------------------------
        1. COUNTDOWN
        Liest das Zieldatum aus data-wedding-date, aktualisiert jede Sekunde.
        Ist das Datum vergangen, wird „Wir haben geheiratet!" angezeigt.
