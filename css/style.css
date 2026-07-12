@@ -94,8 +94,8 @@
   :root {
     /* Farben
        Die drei AKZENTFARBEN der Seite:
-         Greige  #D6D2C5 – helle Akzente & Sektionsbänder
-         Schiefer #1B3740 – dunkles Petrol-Blau: Überschriften, Buttons, Bänder
+         Greige  #D6D2C5 – helle Akzente & Sektionsbänder  --> Eierschale: #F0EAD6
+         Schiefer #1B3740 – dunkles Petrol-Blau: Überschriften, Buttons, Bänder --> Altrosa #BA9699
          Salbei  #8B9F8B – Linien, Punkte, Icons (dekorativ)
        Dunkle Flächen laufen als Verlauf Schiefer -> Schiefer-Salbei-Mischton.
        KONTRAST: der hellste Verlaufs-Stopp (#47615E) hält mit dem Creme-Text
@@ -104,11 +104,11 @@
        Salbei, 5.1:1 selbst auf Greige). Reines Salbei ist NUR dekorativ. */
     --creme:        #FAF6EE;  /* Seitenhintergrund, Text auf dunklem Grund */
     --creme-dark:   #D6D2C5;  /* Akzent 1 (Greige): Sektionsbänder, Karten */
-    --slate:        #1B3740;  /* Akzent 2 (Schiefer): siehe --forest */
-    --sage:         #8B9F8B;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
-    --forest:       #1B3740;  /* primär (= Schiefer): Überschriften, Buttons, Links */
-    --forest-deep:  #10222A;  /* Hero-Overlay, Hover-Zustände */
-    --accent:       #44584C;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
+    --slate:        #BA9699;  /* Akzent 2 (Altrosa): siehe --forest */
+    --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
+    --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
+    --forest-deep:  #D63B19;  /* Hero-Overlay, Hover-Zustände */
+    --accent:       #D1CDED;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
     --accent-light: #D6D2C5;  /* helle Akzente (Text/Hover) auf dunklem Grund */
     --ink:          #2E2A24;  /* Fließtext (warmes Fast-Schwarz) */
     --paper:        #FFFFFF;  /* Formularfelder, Karten */
