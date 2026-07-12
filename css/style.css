@@ -853,7 +853,7 @@
   .venue-card address {
     font-style: normal;
     color: color-mix(in srgb, var(--ink) 80%, transparent);
-    margin-block: 0.6rem 1rem;
+    margin-block: 0.7rem 1rem;
   }
   
   .map-wrap {
