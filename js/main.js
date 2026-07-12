@@ -64,7 +64,7 @@
        1. COUNTDOWN
        Liest das Zieldatum aus data-wedding-date, aktualisiert jede Sekunde.
        Ist das Datum vergangen, wird „Wir haben geheiratet!" angezeigt.
-    --------------------------------------------------------------------- */
+    --------------------------------------------------------------------- 
     function initCountdown() {
       var el = document.getElementById('countdown');
       if (!el) return;
@@ -107,7 +107,7 @@
       timer = setInterval(tick, 1000);
     }
   
-    /* ---------------------------------------------------------------------
+     ---------------------------------------------------------------------
        2. STICKY HEADER
        Ab ~60px Scroll bekommt der Header die Klasse .is-scrolled.
     --------------------------------------------------------------------- */
@@ -314,7 +314,7 @@
       }
   
       // Zeigt Personen- und Allergie-Zeilen bis visiblePersons, versteckt den Rest.
-      function syncRows() {
+      /*function syncRows() {
         for (var i = 1; i <= MAX; i++) {
           var show = i <= visiblePersons;
           var personRow = form.querySelector('.person-row[data-person="' + i + '"]');
@@ -333,7 +333,30 @@
           var input = nameInput(i);
           if (span) span.textContent = (input && input.value.trim()) || 'Person ' + i;
         }
-      }
+      } */
+        function syncRows() {
+            for (var i = 1; i <= MAX; i++) {
+              var show = i <= visiblePersons;
+          
+              var personRow = form.querySelector('.person-row[data-person="' + i + '"]');
+              var allergyRow = form.querySelector('.allergy-row[data-person="' + i + '"]');
+          
+              if (personRow) {
+                personRow.style.display = show ? '' : 'none';
+              }
+          
+              if (allergyRow) {
+                allergyRow.style.display = show ? '' : 'none';
+              }
+            }
+          
+            if (addBtn) {
+              addBtn.hidden = visiblePersons >= MAX;
+            }
+          
+            syncAllergyLabels();
+          }
+          
   
       // Blendet den Detail-Bereich nur bei „Zusage" ein.
       function syncDetails() {
