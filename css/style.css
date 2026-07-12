@@ -108,7 +108,7 @@
     --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
     --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
     --forest-deep:  #825D6D;  /* Hero-Overlay, Hover-Zustände */
-    --altrosa-dark: #5E434F;  /* Hero-Overlay, Hover-Zustände */
+    --altrosa-dark: #6B4D5A;  /* Hero-Overlay, Hover-Zustände */
     --accent:       #825D6D;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
     --accent-light: #FAF6EE;  /* helle Akzente (Text/Hover) auf dunklem Grund */
     --ink:          #2E2A24;  /* Fließtext (warmes Fast-Schwarz) */
@@ -587,7 +587,7 @@
     background-image:
       radial-gradient(120% 90% at 15% 15%, var(--forest), transparent 60%), /* links oben */
       radial-gradient(100% 80% at 85% 20%, var(--altrosa-dark), transparent 55%), /* rechts oben */
-      radial-gradient(140% 120% at 50% 110%, var(--slate), var(--forest)), /* erstes unten Mitte, zweites ausfüllend */
+      radial-gradient(140% 120% at 50% 110%, var(--forest), var(--altrosa-dark)), /* erstes unten Mitte, zweites ausfüllend */
       linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);
     background-size: cover;
     background-position: center;
