@@ -64,7 +64,7 @@
        1. COUNTDOWN
        Liest das Zieldatum aus data-wedding-date, aktualisiert jede Sekunde.
        Ist das Datum vergangen, wird „Wir haben geheiratet!" angezeigt.
-    --------------------------------------------------------------------- 
+    --------------------------------------------------------------------- */
     function initCountdown() {
       var el = document.getElementById('countdown');
       if (!el) return;
@@ -107,7 +107,7 @@
       timer = setInterval(tick, 1000);
     }
   
-     ---------------------------------------------------------------------
+    /* ---------------------------------------------------------------------
        2. STICKY HEADER
        Ab ~60px Scroll bekommt der Header die Klasse .is-scrolled.
     --------------------------------------------------------------------- */
@@ -333,7 +333,7 @@
           var input = nameInput(i);
           if (span) span.textContent = (input && input.value.trim()) || 'Person ' + i;
         }
-      } 
+      }
   
       // Blendet den Detail-Bereich nur bei „Zusage" ein.
       function syncDetails() {
