@@ -114,10 +114,10 @@
     --paper:        #FFFFFF;  /* Formularfelder, Karten */
   
     /* Farbverläufe (Fading statt Einfarbigkeit) */
-    --grad-band:    linear-gradient(135deg, #16303A 0%, #1B3740 45%, #47615E 100%);
-    --grad-btn:     linear-gradient(135deg, #1B3740 0%, #47615E 100%);
-    --grad-btn-hover: linear-gradient(135deg, #10222A 0%, #35504B 100%);
-    --grad-text:    linear-gradient(120deg, #1B3740 0%, #2E4A4C 55%, #47615E 100%);
+    --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 45%, var(--creme) 100%);
+    --grad-btn:     linear-gradient(135deg, var(--slate) 0%, var(--creme) 100%);
+    --grad-btn-hover: linear-gradient(135deg, var(--forest-deep) 0%, var(--forest) 100%);
+    --grad-text:    linear-gradient(120deg, var(--slate) 0%, var(--ink) 55%, var(--creme) 100%);
   
     /* abgeleitete / halbtransparente Töne */
     --sage-line:    rgba(139 159 139 / 0.55);
