@@ -79,31 +79,7 @@
 </head>
 <body>
 
-  <!-- =====================================================================
-       PASSWORT-SCHUTZ
-       Das Passwort steht im Attribut data-password (hier ändern!).
-       Wer es einmal richtig eingibt, wird im Browser gemerkt (localStorage)
-       und muss es beim nächsten Besuch nicht erneut eingeben.
-       HINWEIS: Das ist ein Sichtschutz gegen zufällige Besucher – keine
-       echte Verschlüsselung (das Passwort steht im Quelltext der Seite).
-       ===================================================================== -->
-  <div class="password-gate" id="passwordGate" data-password=""
-       role="dialog" aria-modal="true" aria-labelledby="gate-title">
-    <form class="password-gate__card" id="passwordGateForm">
-      <img src="images/mohn_icon_cropped.png" alt="" aria-hidden="true">
-      <!-- INHALT: Überschrift & Hinweis auf der Passwort-Karte -->
-      <h2 id="gate-title">Einladung geschützt</h2>
-      <p>Bitte gebt das Passwort aus eurer Einladung ein.</p>
-      <!-- /INHALT -->
-      <label class="visually-hidden" for="passwordInput">Passwort</label>
-      <input type="password" id="passwordInput" placeholder="Passwort" autocomplete="current-password">
-      <button type="submit" class="btn">Zugang</button>
-      <p class="password-gate__error" id="passwordError" hidden>Falsches Passwort – bitte versucht es noch einmal.</p>
-    </form>
-  </div>
-  <!-- Ohne JavaScript wird der Schutz ausgeblendet, damit die Seite
-       zugänglich bleibt (der Schutz ist ohnehin rein clientseitig). -->
-  <noscript><style>.password-gate { display: none; }</style></noscript>
+
 
   <!-- TECHNIK: Sprunglink für Tastatur-/Screenreader-Nutzer -->
   <a class="skip-link" href="#willkommen">Zum Inhalt springen</a>
