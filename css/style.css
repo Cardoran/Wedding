@@ -587,7 +587,7 @@
       radial-gradient(120% 90% at 15% 15%, var(--forest-deep), transparent 60%),
       radial-gradient(100% 80% at 85% 20%, var(--slate), transparent 55%),
       radial-gradient(140% 120% at 50% 110%, var(--slate), var(--forest)),
-      /*linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);*/
+      linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);
     background-size: cover;
     background-position: center;
   }
