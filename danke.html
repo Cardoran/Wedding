@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<!-- ===========================================================================
+     DANKE-SEITE – Ziel des Formulars.
+     Netlify leitet Gäste nach dem Absenden der Zusage hierher weiter.
+     Bearbeitbar sind nur die Texte zwischen den INHALT-Markern.
+     =========================================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- INHALT: Seitentitel -->
+  <title>Danke! · Thomas &amp; Mona</title>
+  <!-- /INHALT -->
+
+  <meta name="description" content="Danke für eure Rückmeldung zur Hochzeit von Thomas & Mona.">
+  <meta name="theme-color" content="#1B3740">
+  <meta name="robots" content="noindex">
+
+  <!-- TECHNIK: Favicon = Monstera-Blatt – identisch zur Startseite -->
+  <link rel="icon" type="image/png" href="images/monstera-leaf.png">
+
+  <!-- TECHNIK: Stylesheet – nicht ändern -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="danke">
+    <div class="danke__card">
+      <!-- TECHNIK: Monstera-Blatt – nicht ändern -->
+      <img src="images/monstera-leaf.png" alt="" aria-hidden="true">
+
+      <!-- INHALT: Dank-Überschrift.
+           Der Text wird per JS in Singular/Plural gesetzt (data-*-Attribute). -->
+      <h1 id="dankeTitel"
+          data-singular="Danke für deine Antwort!"
+          data-plural="Danke für eure Antwort!">Danke für eure Antwort!</h1>
+      <!-- /INHALT -->
+
+      <!-- INHALT: ein warmer Satz.
+           Der Text wird per JS in Singular/Plural gesetzt (data-*-Attribute). -->
+      <p id="dankeText"
+         data-singular="Wir haben deine Rückmeldung erhalten und freuen uns riesig – bald wird gefeiert. Bei Fragen melde dich jederzeit gern bei uns."
+         data-plural="Wir haben eure Rückmeldung erhalten und freuen uns riesig – bald wird gefeiert. Bei Fragen meldet euch jederzeit gern bei uns.">Wir haben eure Rückmeldung erhalten und freuen uns riesig – bald wird gefeiert.
+         Bei Fragen meldet euch jederzeit gern bei uns.</p>
+      <!-- /INHALT -->
+
+      <!-- INHALT: Button zurück zur Startseite -->
+      <a class="btn btn-ghost" href="/">Zurück zur Seite</a>
+      <!-- /INHALT -->
+    </div>
+  </main>
+
+  <!-- TECHNIK: Setzt Überschrift und Satz je nach gewählter Personenzahl
+       (aus dem RSVP-Formular, im sessionStorage gemerkt) auf Singular
+       (1 Person) oder Plural (mehr als 1 Person). Fällt auf Plural zurück,
+       falls kein Wert vorhanden ist. -->
+  <script>
+    (function () {
+      'use strict';
+      var anzahl = 0;
+      try { anzahl = parseInt(sessionStorage.getItem('rsvpAnzahl'), 10); }
+      catch (e) { anzahl = 0; }
+
+      var singular = anzahl === 1;
+
+      ['dankeTitel', 'dankeText'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var text = singular ? el.getAttribute('data-singular')
+                            : el.getAttribute('data-plural');
+        if (text) el.textContent = text;
+      });
+    })();
+  </script>
+</body>
+</html>
