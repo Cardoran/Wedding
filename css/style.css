@@ -80,11 +80,11 @@
   }
   /* Scriptina – kalligrafische Schrift für die Namen & Sektions-Überschriften */
   @font-face {
-    font-family: 'Scriptina';
+    font-family: 'Tangerine';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/scriptina.ttf') format('truetype');
+    src: url('../fonts/tangerine.ttf') format('truetype');
   }
   
   
@@ -126,7 +126,7 @@
   
     /* Schriften – mit System-Fallback, falls woff2 fehlen */
     --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-    --font-script:  'Scriptina', 'Cormorant Garamond', Georgia, cursive;
+    --font-script:  'Tangerine', 'Cormorant Garamond', Georgia, cursive;
     --font-body:    'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
   
     /* Layout */

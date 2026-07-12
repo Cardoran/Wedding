@@ -32,7 +32,7 @@
        1. Im <title> und in den Meta-/Open-Graph-Tags (unten im <head>)
        2. Im Hero: Attribut  data-wedding-date="2027-05-26T14:00:00"
           → DAS ist die technische Quelle für den Countdown (Format:
-            JAHR-MONAT-TAGThh:mm:ss). Nur hier stimmt die Uhrzeit die Rechnung.
+            JAHR-MarcusT-TAGThh:mm:ss). Nur hier stimmt die Uhrzeit die Rechnung.
        3. Im Hero der sichtbare Text „26. Mai 2027 · Mühltal"
        4. Im Footer „26. Mai 2027"
 
@@ -47,32 +47,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- INHALT: Seitentitel – „Vorname & Vorname · Wir heiraten!" -->
-  <title>Thomas &amp; Mona · Wir heiraten!</title>
+  <title>Lisa &amp; Marcus · Wir heiraten!</title>
   <!-- /INHALT -->
 
   <!-- INHALT: Kurzbeschreibung (1 Satz, taucht bei Google & beim Teilen auf) -->
-  <meta name="description" content="Thomas & Mona heiraten am 26. Mai 2027 auf dem Hofgut Dippelshof in Mühltal. Alle Infos zu Ablauf, Location, Übernachtung und eure Zusage findet ihr hier.">
+  <meta name="description" content="Lisa & Marcus heiraten am 29. Mai 2027 im Hochzeitsturm in Darmstadt. Alle Infos zu Ablauf, Location, Übernachtung und eure Zusage findet ihr hier.">
   <!-- /INHALT -->
 
   <!-- TECHNIK: Farbe der Browser-Leiste (mobil) -->
-  <meta name="theme-color" content="#1B3740">
+  <meta name="theme-color" content="#F0EAD6">
 
   <!-- Open Graph / Social Media (Vorschaubild beim Teilen) -->
   <!-- INHALT: gleiche Angaben wie oben in Titel & Beschreibung -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Thomas &amp; Mona · Wir heiraten!">
-  <meta property="og:description" content="Thomas & Mona heiraten am 26. Mai 2027 in Mühltal. Alle Infos & eure Zusage hier.">
+  <meta property="og:title" content="Lisa &amp; Marcus · Wir heiraten!">
+  <meta property="og:description" content="Lisa & Marcus heiraten am 29. Mai 2027 im Hochzeitsturm in Darmstadt.">
   <!-- /INHALT -->
   <!-- FOTO EINSETZEN: Legt ein Vorschaubild (ca. 1200×630 px) als
        images/og-bild.jpg an. Ohne diese Datei wird beim Teilen kein Bild gezeigt. -->
-  <meta property="og:image" content="images/og-bild.jpg">
+   <!--<meta property="og:image" content="images/og-bild.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Thomas &amp; Mona · Wir heiraten!">
-  <meta name="twitter:description" content="Thomas & Mona heiraten am 26. Mai 2027 in Mühltal.">
-  <meta name="twitter:image" content="images/og-bild.jpg">
+  <meta name="twitter:title" content="Lisa &amp; Marcus · Wir heiraten!">
+  <meta name="twitter:description" content="Lisa & Marcus heiraten am 26. Mai 2027 in Mühltal.">
+  <meta name="twitter:image" content="images/og-bild.jpg"> -->
 
   <!-- TECHNIK: Favicon = Monstera-Blatt -->
-  <link rel="icon" type="image/png" href="images/monstera-leaf.png">
+  <link rel="icon" type="image/png" href="images/mohn_icon_cropped.png">
 
   <!-- TECHNIK: Stylesheet – nicht ändern -->
   <link rel="stylesheet" href="css/style.css">
@@ -114,7 +114,7 @@
   <header class="site-header" id="siteHeader">
     <div class="container">
       <!-- INHALT: Monogramm = eure Initialen, z. B. „A & B" -->
-      <a class="monogram" href="#start" aria-label="Thomas und Mona – zum Seitenanfang">
+      <a class="monogram" href="#start" aria-label="Lisa und Marcus – zum Seitenanfang">
         <!-- TECHNIK: Monstera-Blatt als Logo – nicht ändern -->
         <img src="images/monstera-leaf.png" alt="" aria-hidden="true">
         T &amp; M
@@ -178,7 +178,7 @@
 
         <!-- INHALT: eure beiden Vornamen -->
         <h1 class="hero__names" id="hero-names">
-          Thomas <span class="amp">&amp;</span> <span class="name-b">Mona</span>
+          Lisa <span class="amp">&amp;</span> <span class="name-b">Marcus</span>
         </h1>
         <!-- /INHALT -->
 
@@ -189,7 +189,7 @@
         <!-- /INHALT -->
 
         <!-- TECHNIK: Countdown. Das Datum kommt AUSSCHLIESSLICH aus dem
-             Attribut data-wedding-date (Format JAHR-MONAT-TAGThh:mm:ss).
+             Attribut data-wedding-date (Format JAHR-MarcusT-TAGThh:mm:ss).
              Ändert dort Datum UND Uhrzeit eurer Trauung. Die Zahlen darin
              werden automatisch von JavaScript gefüllt – Inhalt nicht ändern. -->
         <!-- Minuten & Sekunden wurden bewusst entfernt – das JavaScript
@@ -229,7 +229,7 @@
             <!-- /INHALT -->
 
             <!-- INHALT: Grußzeile / Unterschrift, kurz -->
-            <p class="signature">Wir freuen uns auf euch – Thomas &amp; Mona</p>
+            <p class="signature">Wir freuen uns auf euch – Lisa &amp; Marcus</p>
             <!-- /INHALT -->
           </div>
         </div>
@@ -1052,7 +1052,7 @@
       <!-- /INHALT -->
 
       <!-- INHALT: Namen -->
-      <p class="footer-names">Thomas &amp; Mona</p>
+      <p class="footer-names">Lisa &amp; Marcus</p>
       <!-- /INHALT -->
       <!-- INHALT: Datum (siehe Anleitung: hier ebenfalls ändern) -->
       <p class="footer-date">26. Mai 2027 · Mühltal</p>
@@ -1078,7 +1078,7 @@
              die Seite ist eine private, nicht öffentlich beworbene Einladungsseite.
              Bei Bedarf hier wieder einfügen. -->
         <!-- INHALT: kleiner Copyright-/Schlusszeile. Die Jahreszahl wird per JS gesetzt. -->
-        <p>&copy; <span id="footerYear">2026</span> Thomas &amp; Mona</p>
+        <p>&copy; <span id="footerYear">2026</span> Lisa &amp; Marcus</p>
         <!-- /INHALT -->
       </div>
     </div>
