@@ -1,143 +1,1093 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unsere Hochzeit</title>
-  <link rel="stylesheet" href="styles.css" />
+<!-- ===========================================================================
+     ANLEITUNG ZUM BEARBEITEN – bitte zuerst lesen!
+     ===========================================================================
+     Diese Seite ist eine Vorlage für eine Hochzeitswebseite. Sie ist so gebaut,
+     dass sich TEXTE sehr einfach austauschen lassen.
+
+     GRUNDREGEL:
+       Ändere NUR Texte. Niemals Klassen (class="…"), IDs (id="…"),
+       name-Attribute, die Struktur der Seite oder die SVG-Grafiken.
+
+     WO ETWAS BEARBEITET WERDEN DARF:
+       Alles zwischen Marker-Kommentaren ist zum Bearbeiten gedacht. Ein solcher
+       Bereich beginnt mit einer Zeile, die mit  INHALT:  beginnt (samt kurzem
+       Hinweis, was hier hin soll, wie lang und in welchem Ton), darunter steht
+       der eigentliche Text, und darunter schließt eine Zeile mit  /INHALT  ab.
+       (Beide Zeilen sind HTML-Kommentare; ihr ändert nur den Text dazwischen.)
+
+     WAS NICHT ANGEFASST WERDEN DARF:
+       Alles, das mit  TECHNIK:  markiert ist. Das betrifft u. a. das Formular,
+       versteckte Felder, Script-/Link-Zeilen und alle SVG-Grafiken.
+
+     PLATZHALTER (per Suchen & Ersetzen austauschbar):
+       • Namen:  „Anna" und „Ben"  →  eure Vornamen
+                 Monogramm „A & B" →  eure Initialen
+       • Datum:  „26. Mai 2027"  →  euer Datum
+                 Ort   „Mühltal"    →  eure Stadt
+
+     DAS HOCHZEITSDATUM steht an folgenden Stellen und muss ÜBERALL gleich sein:
+       1. Im <title> und in den Meta-/Open-Graph-Tags (unten im <head>)
+       2. Im Hero: Attribut  data-wedding-date="2027-05-26T14:00:00"
+          → DAS ist die technische Quelle für den Countdown (Format:
+            JAHR-MONAT-TAGThh:mm:ss). Nur hier stimmt die Uhrzeit die Rechnung.
+       3. Im Hero der sichtbare Text „26. Mai 2027 · Mühltal"
+       4. Im Footer „26. Mai 2027"
+
+     KARTE (OpenStreetMap) ÄNDERN: siehe Kommentar im Abschnitt „Location".
+
+     FOTOS: Es gibt bewusst keine Foto-Platzhalter auf der Seite. Die Bilder
+     werden nach der Hochzeit über einen Link geteilt – der Platz dafür ist im
+     Abschnitt „Galerie" vorbereitet (siehe Kommentar LINK EINSETZEN dort).
+     =========================================================================== -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- INHALT: Seitentitel – „Vorname & Vorname · Wir heiraten!" -->
+  <title>Thomas &amp; Mona · Wir heiraten!</title>
+  <!-- /INHALT -->
+
+  <!-- INHALT: Kurzbeschreibung (1 Satz, taucht bei Google & beim Teilen auf) -->
+  <meta name="description" content="Thomas & Mona heiraten am 26. Mai 2027 auf dem Hofgut Dippelshof in Mühltal. Alle Infos zu Ablauf, Location, Übernachtung und eure Zusage findet ihr hier.">
+  <!-- /INHALT -->
+
+  <!-- TECHNIK: Farbe der Browser-Leiste (mobil) -->
+  <meta name="theme-color" content="#1B3740">
+
+  <!-- Open Graph / Social Media (Vorschaubild beim Teilen) -->
+  <!-- INHALT: gleiche Angaben wie oben in Titel & Beschreibung -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Thomas &amp; Mona · Wir heiraten!">
+  <meta property="og:description" content="Thomas & Mona heiraten am 26. Mai 2027 in Mühltal. Alle Infos & eure Zusage hier.">
+  <!-- /INHALT -->
+  <!-- FOTO EINSETZEN: Legt ein Vorschaubild (ca. 1200×630 px) als
+       images/og-bild.jpg an. Ohne diese Datei wird beim Teilen kein Bild gezeigt. -->
+  <meta property="og:image" content="images/og-bild.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thomas &amp; Mona · Wir heiraten!">
+  <meta name="twitter:description" content="Thomas & Mona heiraten am 26. Mai 2027 in Mühltal.">
+  <meta name="twitter:image" content="images/og-bild.jpg">
+
+  <!-- TECHNIK: Favicon = Monstera-Blatt -->
+  <link rel="icon" type="image/png" href="images/monstera-leaf.png">
+
+  <!-- TECHNIK: Stylesheet – nicht ändern -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <script>
-    // Prüfe, ob User authentifiziert ist
-    fetch('/.netlify/functions/check-auth')
-      .then(response => {
-        if (!response.ok) {
-          window.location.href = '/index.html';
-        }
-      });
-  </script>
 
-  <div class="container">
-    <header>
-      <h1>Unsere Hochzeit</h1>
-      <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
-    </header>
+  <!-- =====================================================================
+       PASSWORT-SCHUTZ
+       Das Passwort steht im Attribut data-password (hier ändern!).
+       Wer es einmal richtig eingibt, wird im Browser gemerkt (localStorage)
+       und muss es beim nächsten Besuch nicht erneut eingeben.
+       HINWEIS: Das ist ein Sichtschutz gegen zufällige Besucher – keine
+       echte Verschlüsselung (das Passwort steht im Quelltext der Seite).
+       ===================================================================== -->
+  <div class="password-gate" id="passwordGate" data-password="lass-mich-rein!"
+       role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <form class="password-gate__card" id="passwordGateForm">
+      <img src="images/monstera-leaf.png" alt="" aria-hidden="true">
+      <!-- INHALT: Überschrift & Hinweis auf der Passwort-Karte -->
+      <h2 id="gate-title">Einladung geschützt</h2>
+      <p>Bitte gebt das Passwort aus eurer Einladung ein.</p>
+      <!-- /INHALT -->
+      <label class="visually-hidden" for="passwordInput">Passwort</label>
+      <input type="password" id="passwordInput" placeholder="Passwort" autocomplete="current-password">
+      <button type="submit" class="btn">Zugang</button>
+      <p class="password-gate__error" id="passwordError" hidden>Falsches Passwort – bitte versucht es noch einmal.</p>
+    </form>
+  </div>
+  <!-- Ohne JavaScript wird der Schutz ausgeblendet, damit die Seite
+       zugänglich bleibt (der Schutz ist ohnehin rein clientseitig). -->
+  <noscript><style>.password-gate { display: none; }</style></noscript>
 
-    <!-- ========== WICHTIGE INFOS ========== -->
-    <section id="info">
-      <h2>Wichtige Informationen</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <h3>📅 Datum</h3>
-          <p>Samstag, 29. Mai 2027</p>
+  <!-- TECHNIK: Sprunglink für Tastatur-/Screenreader-Nutzer -->
+  <a class="skip-link" href="#willkommen">Zum Inhalt springen</a>
+
+  <!-- =====================================================================
+       HEADER / NAVIGATION
+       ===================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <!-- INHALT: Monogramm = eure Initialen, z. B. „A & B" -->
+      <a class="monogram" href="#start" aria-label="Thomas und Mona – zum Seitenanfang">
+        <!-- TECHNIK: Monstera-Blatt als Logo – nicht ändern -->
+        <img src="images/monstera-leaf.png" alt="" aria-hidden="true">
+        T &amp; M
+      </a>
+      <!-- /INHALT -->
+
+      <!-- TECHNIK: Desktop-Navigation. Texte dürfen angepasst werden,
+           die href="#…"-Ziele müssen zu den Sektions-IDs passen. -->
+      <nav class="nav-desktop" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#willkommen">Willkommen</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a href="#location">Location</a></li>
+          <li><a href="#uebernachtung">Übernachtung</a></li>
+          <li><a href="#dresscode">Dresscode &amp; Geschenke</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a class="nav-cta" href="#rsvp">Zusagen</a></li>
+        </ul>
+      </nav>
+
+      <!-- TECHNIK: Hamburger-Button (mobil) – nicht ändern -->
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- TECHNIK: Vollbild-Menü für Mobilgeräte – Struktur nicht ändern -->
+  <nav class="nav-mobile" id="navMobile" aria-label="Mobile Navigation" aria-hidden="true">
+    <button class="nav-close" id="navClose" aria-label="Menü schließen">&times;</button>
+    <ul>
+      <li><a href="#willkommen">Willkommen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#uebernachtung">Übernachtung</a></li>
+      <li><a href="#dresscode">Dresscode &amp; Geschenke</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a class="nav-cta" href="#rsvp">Zusagen</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- ===================================================================
+         HERO
+         =================================================================== -->
+    <section class="hero" id="start" aria-labelledby="hero-names">
+      <!-- TECHNIK: Foto der Ringe – die weichen Ränder sind direkt ins Bild
+           gebacken (Alpha-Maske), es verschmilzt daher mit dem Hintergrund.
+           Position & Transparenz werden in der CSS-Datei gesteuert. -->
+      <div class="hero__photo" aria-hidden="true">
+        <img src="images/hands-with-rings.webp" alt="" width="900" height="1024" decoding="async">
+      </div>
+
+      <div class="hero__inner">
+        <!-- INHALT: kurze Vorfreude-Zeile, 2–3 Wörter -->
+        <p class="eyebrow">Wir heiraten!</p>
+        <!-- /INHALT -->
+
+        <!-- INHALT: eure beiden Vornamen -->
+        <h1 class="hero__names" id="hero-names">
+          Thomas <span class="amp">&amp;</span> <span class="name-b">Mona</span>
+        </h1>
+        <!-- /INHALT -->
+
+        <hr class="hero__rule">
+
+        <!-- INHALT: Datum · Stadt (siehe Anleitung oben: hier auch ändern!) -->
+        <p class="hero__date">26. Mai 2027 · Mühltal</p>
+        <!-- /INHALT -->
+
+        <!-- TECHNIK: Countdown. Das Datum kommt AUSSCHLIESSLICH aus dem
+             Attribut data-wedding-date (Format JAHR-MONAT-TAGThh:mm:ss).
+             Ändert dort Datum UND Uhrzeit eurer Trauung. Die Zahlen darin
+             werden automatisch von JavaScript gefüllt – Inhalt nicht ändern. -->
+        <!-- Minuten & Sekunden wurden bewusst entfernt – das JavaScript
+             erkennt fehlende Einheiten automatisch. -->
+        <div class="countdown" id="countdown" data-wedding-date="2027-05-26T14:00:00" aria-live="off">
+          <div class="countdown__unit"><span class="countdown__num" data-cd="days">00</span><span class="countdown__label">Tage</span></div>
+          <div class="countdown__unit"><span class="countdown__num" data-cd="hours">00</span><span class="countdown__label">Stunden</span></div>
         </div>
-        <div class="info-item">
-          <h3>⏰ Uhrzeit</h3>
-          <p>13:00 Uhr</p>
+      </div>
+
+      <!-- TECHNIK: Scroll-Hinweis (Pfeil) – nicht ändern -->
+      <a class="scroll-cue" href="#willkommen" aria-label="Nach unten scrollen">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ===================================================================
+         WILLKOMMEN
+         =================================================================== -->
+    <section class="band-creme" id="willkommen" aria-labelledby="willkommen-title">
+      <div class="container">
+        <div class="willkommen__grid js-reveal">
+          <div class="willkommen__text">
+            <h2 id="willkommen-title">Schön, dass ihr da seid</h2>
+
+            <!-- INHALT: herzliche Begrüßung an Familie & Freunde, 2–4 Sätze,
+                 warm und persönlich, immer „ihr"-Form (nie „Sie"). -->
+            <p>Wir können es kaum erwarten, gemeinsam mit euch
+               einen unvergesslichen Tag voller Liebe, Lachen und schöner Momente zu
+               erleben.</p>
+            <p>Auf dieser Seite findet ihr alle wichtigen Informationen rund um unsere
+               Hochzeit – vom Ablauf über die Anreise bis zur Übernachtung. Stöbert in
+               Ruhe und vergesst nicht, uns über das Formular Bescheid zu geben, ob ihr
+               dabei seid.</p>
+            <!-- /INHALT -->
+
+            <!-- INHALT: Grußzeile / Unterschrift, kurz -->
+            <p class="signature">Wir freuen uns auf euch – Thomas &amp; Mona</p>
+            <!-- /INHALT -->
+          </div>
         </div>
-        <div class="info-item">
-          <h3>📍 Ort</h3>
-          <p>Hochzeitsturm Darmstadt<br>Mathildenhöhe 2<br>64293 Darmstadt</p>
-        </div>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
       </div>
     </section>
 
-    <!-- ========== TAGESABLAUF ========== -->
-    <section id="agenda">
-      <h2>Tagesablauf</h2>
-      <div class="agenda">
-        <div class="agenda-item">
-          <p><span class="time">13:00 Uhr</span> – Trauung im Hochzeitsturm (Mathildenhöhe 2, 64293 Darmstadt)</p>
+    <!-- ===================================================================
+         TAGESABLAUF
+         =================================================================== -->
+    <section class="band-creme-dark" id="ablauf" aria-labelledby="ablauf-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Was euch erwartet</p>
+          <h2 id="ablauf-title">Der Tagesablauf</h2>
+          <!-- INHALT: ein einleitender Satz, optional -->
+          <p>Hier der geplante Ablauf unseres großen Tages – die Uhrzeiten können sich noch bis April ändern.</p>
+          <!-- /INHALT -->
         </div>
-        <div class="agenda-item">
-          <p><span class="time">ab ca. 13:45 Uhr</span> – Sektempfang vor dem Hochzeitsturm mit Snacks (Mathildenhöhe 2, 64293 Darmstadt)</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">ab 15:00 Uhr</span> – Eintreffen am Oberwaldhaus mit Getränken und Snacks (Dieburger Landstraße 24, 64293 Darmstadt)</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">ca. 19:00 Uhr</span> – Abendessen (Oberwaldhaus)</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">danach irgendwann</span> – Party oder so (Oberwaldhaus)</p>
-        </div>
-        <div class="agenda-item">
-          <p><span class="time">03:00 Uhr</span> – Ende (länger dürfen wir nicht)</p>
-        </div>
+
+        <!-- TECHNIK: Timeline. Aufbau je Eintrag NICHT ändern. Bearbeitbar sind
+             nur Uhrzeit, Titel und Beschreibung zwischen den INHALT-Markern. -->
+        <ol class="timeline js-reveal">
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Ortsmarken-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+              <!-- INHALT: Uhrzeit -->14:30<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt (kurzer Titel) -->
+            <p class="timeline__title">Ankunft der Gäste</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Kommt gut auf dem Dippelshof an und macht es euch gemütlich.</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Ringe-Symbol -->
+              <svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="13" r="8"/><circle cx="24" cy="13" r="8"/><path d="M14 4l2-2 2 2" stroke-linecap="round"/></svg>
+              <!-- INHALT: Uhrzeit -->15:00<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Trauung</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Wir geben uns das Ja-Wort.</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Sektglas-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10l-1 6a4 4 0 0 1-8 0z"/><path d="M12 15v5M8 20h8"/></svg>
+              <!-- INHALT: Uhrzeit -->15:30<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Sektempfang &amp; Gruppenfotos</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Anstoßen, gratulieren und gemeinsame Fotos machen.</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Besteck-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v18M6 3v5a2 2 0 0 0 4 0V3"/><path d="M16 3c-1.5 1-2 3-2 5s.5 3 2 3v10"/></svg>
+              <!-- INHALT: Uhrzeit -->18:00<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Abendessen</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Ein festliches Menü in gemütlicher Runde.</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Noten-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+              <!-- INHALT: Uhrzeit -->21:00<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Party &amp; Tanz</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Die Tanzfläche ist eröffnet – wir feiern bis in die Nacht.</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Mond-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a7 7 0 0 0 10 10z"/></svg>
+              <!-- INHALT: Uhrzeit -->01:00<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Ende der Party</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Nach einer langen Nacht heißt es: Gute Nacht!</p>
+            <!-- /INHALT -->
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__time">
+              <!-- TECHNIK: Kaffeetassen-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M16 9h2a2 2 0 0 1 0 5h-2"/><path d="M8 5V3M12 5V3"/></svg>
+              <!-- INHALT: Uhrzeit -->9:00<!-- /INHALT -->
+            </span>
+            <!-- INHALT: Programmpunkt -->
+            <p class="timeline__title">Frühstück im Dippelshof</p>
+            <!-- /INHALT -->
+            <!-- INHALT: eine Zeile Beschreibung -->
+            <p class="timeline__desc">Am nächsten Morgen lassen wir das Fest gemeinsam ausklingen.</p>
+            <!-- /INHALT -->
+          </li>
+        </ol>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
       </div>
     </section>
 
-    <!-- ========== RÜCKMELDUNG ========== -->
-    <section id="rsvp">
-      <h2>Rückmeldung</h2>
-      <p>Bitte teile uns bis zum <strong>30. April 2027</strong> mit, ob du dabei bist.<br>
-      Das Essen wird rein vegetarisch/vegan sein.<br>
-      Bitte Begleitpersonen getrennt eintragen, das vereinfacht uns die Übersicht.</p>
-
-      <form id="rsvp-form">
-
-        <div class="form-group">
-          <label for="name">Vor- und Nachname:</label>
-          <input type="text" id="name" name="name" required placeholder="Tina Testperson" />
+    <!-- ===================================================================
+         LOCATION & ANREISE
+         =================================================================== -->
+    <section class="band-creme" id="location" aria-labelledby="location-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Wo wir feiern</p>
+          <h2 id="location-title">Location &amp; Anreise</h2>
         </div>
-        
-        <div class="form-group">
-            <div style="margin-top: 0.5rem;">
-              <label style="display: inline-block; margin-right: 1rem;">
-                <input type="radio" name="attendance" value="yes" checked required /> Ich komme
+
+        <div class="location__grid js-reveal">
+          <div class="venue-card">
+            <!-- INHALT: Name der Location -->
+            <h3>Hofgut Dippelshof</h3>
+            <!-- /INHALT -->
+            <!-- INHALT: vollständige Adresse -->
+            <address>Am Dippelshof 1<br>64367 Mühltal/Traisa</address>
+            <!-- /INHALT -->
+            <!-- INHALT: kurze Beschreibung der Location, 1–2 Sätze -->
+            <p>Geheiratet und gefeiert wird auf dem Hofgut Dippelshof in Mühltal/Traisa bei Darmstadt.
+               Mehr über die Location findet ihr unter
+               <a href="https://dippelshof.de/" target="_blank" rel="noopener">dippelshof.de</a>.</p>
+            <!-- /INHALT -->
+          </div>
+
+          <!-- KARTE ÄNDERN (OpenStreetMap):
+               Es gibt ZWEI Werte, die IMMER GEMEINSAM angepasst werden müssen:
+                 1. bbox = Kartenausschnitt: min-Länge,min-Breite,max-Länge,max-Breite
+                 2. marker = Position der Nadel: BREITE,LÄNGE  (Achtung: umgekehrte
+                    Reihenfolge!)
+               So geht's am einfachsten:
+                 • Öffnet openstreetmap.org, sucht eure Location, klickt oben rechts
+                   auf „Teilen" → „HTML einbetten". Dort stehen ein fertiger bbox-Wert
+                   und der marker. Kopiert BEIDE in die src-URL unten.
+               Ersetzt außerdem unten die Koordinaten (LAT,LON) im Link „Route planen"
+               und im Fallback-Link. -->
+          <div class="map-wrap">
+            <!-- TECHNIK: iframe-Attribute (title, loading) nicht entfernen -->
+            <iframe
+              title="Karte: Lage der Hochzeitslocation in Mühltal"
+              loading="lazy"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=8.6987%2C49.8332%2C8.7387%2C49.8572&layer=mapnik&marker=49.84518%2C8.71871">
+            </iframe>
+          </div>
+          <p class="map-links">
+            <!-- INHALT: Link zu einer größeren Karte (gleiche Koordinaten wie oben) -->
+            <a href="https://www.openstreetmap.org/?mlat=49.84518&amp;mlon=8.71871#map=15/49.84518/8.71871" target="_blank" rel="noopener">Größere Karte anzeigen</a>
+            <!-- /INHALT -->
+            <!-- INHALT: „Route planen"-Ziel = eure Koordinaten LAT,LON -->
+            <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=49.84518,8.71871" target="_blank" rel="noopener">Route planen</a>
+            <!-- /INHALT -->
+          </p>
+
+          <div class="info-cards">
+            <div class="info-card">
+              <h4>
+                <!-- TECHNIK: Auto-Symbol -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l2-5a2 2 0 0 1 2-1h10a2 2 0 0 1 2 1l2 5v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><circle cx="7" cy="15" r="1"/><circle cx="17" cy="15" r="1"/></svg>
+                Anreise mit dem Auto
+              </h4>
+              <!-- INHALT: Parkhinweise, 1–2 Sätze -->
+              <p>Vor dem Dippelshof gibt es genügend kostenlose (öffentliche)
+                 Parkplätze.</p>
+              <!-- /INHALT -->
+            </div>
+            <div class="info-card">
+              <h4>
+                <!-- TECHNIK: Zug-Symbol -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="13" rx="2"/><path d="M6 10h12"/><circle cx="9" cy="13" r="0.5"/><circle cx="15" cy="13" r="0.5"/><path d="M8 16l-2 4M16 16l2 4"/></svg>
+                Anreise mit Bahn &amp; Bus
+              </h4>
+              <!-- INHALT: Bahn-/Shuttle-Hinweise, 1–2 Sätze -->
+              <p>Per Zug: Vom Bahnhof „Mühltal-Nieder-Ramstadt" (Linie RB82 ab Frankfurt Hbf)
+                 sind es etwa 30 Minuten zu Fuß zum Dippelshof.
+                 Per Bus: Die Linie M2 fährt ab Darmstadt Böllenfalltor bis
+                 „Mühltal-Traisa Datterichplatz/Schwimmbad" – von dort etwa 20 Minuten zu Fuß.</p>
+              <!-- /INHALT -->
+            </div>
+          </div>
+        </div>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         ÜBERNACHTUNG
+         =================================================================== -->
+    <section class="band-creme-dark" id="uebernachtung" aria-labelledby="uebernachtung-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Bleibt über Nacht</p>
+          <h2 id="uebernachtung-title">Übernachtung</h2>
+          <!-- INHALT: ein einleitender Satz, optional -->
+          <p>Für alle, die über Nacht bleiben möchten, haben wir zwei Möglichkeiten herausgesucht.
+             Bitte habt Verständnis dafür, dass die Übernachtungskosten selbst zu tragen sind.
+             Im Dippelshof ist das Frühstück am nächsten Morgen im Zimmerpreis inbegriffen.
+             Übernachtet ihr nicht dort, könnt ihr trotzdem zum Frühstück dazukommen – gebt das
+             einfach im Anmeldeformular an, wir reservieren dann für alle einen gemeinsamen Platz.
+             Die Kosten fürs Frühstück tragt ihr in diesem Fall selbst.</p>
+          <!-- /INHALT -->
+        </div>
+
+        <!-- TECHNIK: Hotelkarten. Struktur je Karte nicht ändern; nur Texte
+             zwischen den INHALT-Markern anpassen. Karten dürfen kopiert oder
+             gelöscht werden (ganze <div class="hotel-card">…</div>-Blöcke). -->
+        <div class="hotel-grid js-reveal">
+          <div class="hotel-card">
+            <!-- INHALT: Hotelname -->
+            <h3>Hofgut Dippelshof</h3>
+            <!-- /INHALT -->
+            <!-- INHALT: Entfernung & Preis-Hinweis -->
+            <span class="hotel-meta">Direkt an der Location · Doppelzimmer 159 € inkl. Frühstück</span>
+            <!-- /INHALT -->
+            <!-- INHALT: Telefon & Website -->
+            <p class="hotel-contact">
+              Reservierung per E-Mail mit dem Stichwort „Hochzeit Geiger/Goebel"<br>
+              <a href="https://dippelshof.de/" target="_blank" rel="noopener">dippelshof.de</a>
+            </p>
+            <!-- /INHALT -->
+          </div>
+
+          <div class="hotel-card">
+            <!-- INHALT: Hotelname -->
+            <h3>Hotel Waldesruh</h3>
+            <!-- /INHALT -->
+            <!-- INHALT: Entfernung & Preis-Hinweis -->
+            <span class="hotel-meta">28 Min. zu Fuß zum Dippelshof · Doppelzimmer 120 €, ohne Frühstück</span>
+            <!-- /INHALT -->
+            <!-- INHALT: Telefon & Website -->
+            <p class="hotel-contact">
+              Am Bessunger Forst 28, 64367 Mühltal<br>
+              <a href="https://hotelwaldesruh.de" target="_blank" rel="noopener">hotelwaldesruh.de</a>
+            </p>
+            <!-- /INHALT -->
+          </div>
+        </div>
+
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         DRESSCODE & GESCHENKE
+         =================================================================== -->
+    <section class="band-creme" id="dresscode" aria-labelledby="dresscode-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Gut zu wissen</p>
+          <h2 id="dresscode-title">Dresscode &amp; Geschenke</h2>
+        </div>
+
+        <div class="duo-grid js-reveal">
+          <div class="duo-card">
+            <h3>
+              <!-- TECHNIK: Kleiderbügel-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7a2 2 0 1 1 2-2c0 1-1 1.5-2 2.5"/><path d="M12 9v0"/><path d="M12 9l8 6a1 1 0 0 1-.6 1.8H4.6A1 1 0 0 1 4 15z"/></svg>
+              Dresscode
+            </h3>
+            <!-- INHALT: kurzer Dresscode-Text, 1–2 Sätze -->
+            <p>Zieht euch gerne schick an, aber fühlt euch wohl! Smart Casual bis Cocktail ist genau richtig – ein Hemd mit Stoffhose oder ein sommerliches Kleid sind eine tolle Wahl. Helle, freundliche Farben freuen uns besonders.
+</p>
+            <!-- /INHALT -->
+
+          </div>
+
+          <div class="duo-card">
+            <h3>
+              <!-- TECHNIK: Geschenk-Symbol -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M4 13h16M12 9v11"/><path d="M12 9C10 9 8 8 8 6a2 2 0 0 1 4 0c0 2 2 3 4 3a2 2 0 0 0 0-4"/></svg>
+              Geschenke
+            </h3>
+            <!-- INHALT: freundlicher Geschenke-Text (Beitrag zur Hochzeitsreise) -->
+            <p>Euer Kommen ist das schönste Geschenk. Wenn ihr uns darüber hinaus eine
+               Freude machen möchtet, freuen wir uns über einen Beitrag zu unseren
+               Flitterwochen.</p>
+            <!-- /INHALT -->
+          </div>
+        </div>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         GALERIE
+         =================================================================== -->
+    <section class="band-creme-dark" id="galerie" aria-labelledby="galerie-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Unsere schönsten Momente</p>
+          <h2 id="galerie-title">Bildergalerie</h2>
+          <!-- INHALT: ein einleitender Satz, optional -->
+          <p>Alle Fotos unserer Hochzeit teilen wir mit euch über einen gemeinsamen Link.</p>
+          <!-- /INHALT -->
+        </div>
+
+        <!-- Hinweis-Karte statt Foto-Raster: Die Bilder werden per Link geteilt.
+             LINK EINSETZEN: Nach der Hochzeit den Satz unten durch einen Link
+             ersetzen, z. B.:
+             <a class="btn" href="https://euer-album-link.example">Zu den Fotos</a> -->
+        <div class="galerie-note js-reveal">
+          <!-- INHALT: Erklärungstext zur Foto-Weitergabe -->
+          <p>Bei der Feier werden Fotos von euch gemacht – von unseren Fotografen und sicher auch
+             von euch gegenseitig. Nach der Feier findet ihr genau hier den Link zu allen Bildern –
+             den schönsten Momenten unserer Fotografen und euren Schnappschüssen. Der Bereich ist
+             passwortgeschützt und nicht öffentlich zugänglich. Wir freuen uns, wenn ihr Fotos von
+             der Feier nicht ohne Rückfrage bei uns in sozialen Netzwerken oder anderswo postet.</p>
+          <!-- /INHALT -->
+        </div>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         RSVP – Statement-Band
+         =================================================================== -->
+    <section class="band-forest" id="rsvp" aria-labelledby="rsvp-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Eure Antwort</p>
+          <h2 id="rsvp-title">Seid ihr dabei?</h2>
+          <!-- INHALT: Bitte um Rückmeldung inkl. Frist-Datum -->
+          <p>Bitte gebt uns bis zum <strong>1. September 2026</strong> über das Formular Bescheid,
+             ob ihr mit uns feiert – auch dann, wenn ihr uns schon auf anderem Weg informiert habt.</p>
+          <!-- /INHALT -->
+        </div>
+
+        <!-- TECHNIK: NETLIFY-FORMULAR – NICHTS an den Attributen ändern!
+             (name, method, action, data-netlify, netlify-honeypot, das versteckte
+             form-name-Feld und das bot-field sind für Netlify zwingend nötig.)
+             Ihr dürft NUR die sichtbaren Beschriftungen/Texte ändern. -->
+        <form action='/danke' class='rsvp-card js-reveal' method='POST' name='rsvp'>
+          <input type="hidden" name="form-name" value="rsvp">
+
+          <!-- Feld 1: Wer möchte kommen? – ein Feld pro Person.
+               TECHNIK: Alle 5 Personen-Felder müssen im HTML stehen, damit
+               Netlify sie beim Deploy erkennt. JavaScript blendet die Zeilen 2–5
+               aus und zeigt sie erst über den Button „+ Person hinzufügen". -->
+          <fieldset>
+            <legend>Wer möchte kommen?
+              <span class="hint">Bitte nennt alle Personen einzeln (auch Kinder) – jede in einem
+                eigenen Feld.</span>
+            </legend>
+
+            <div class="form-field person-row" data-person="1">
+              <label for="rsvp-person1-name">Person 1</label>
+              <input type="text" id="rsvp-person1-name" name="person1_name" required autocomplete="name">
+            </div>
+            <div class="form-field person-row" data-person="2">
+              <label for="rsvp-person2-name">Person 2</label>
+              <input type="text" id="rsvp-person2-name" name="person2_name">
+            </div>
+            <div class="form-field person-row" data-person="3">
+              <label for="rsvp-person3-name">Person 3</label>
+              <input type="text" id="rsvp-person3-name" name="person3_name">
+            </div>
+            <div class="form-field person-row" data-person="4">
+              <label for="rsvp-person4-name">Person 4</label>
+              <input type="text" id="rsvp-person4-name" name="person4_name">
+            </div>
+            <div class="form-field person-row" data-person="5">
+              <label for="rsvp-person5-name">Person 5</label>
+              <input type="text" id="rsvp-person5-name" name="person5_name">
+            </div>
+
+            <!-- TECHNIK: Button funktioniert nur mit JavaScript; ohne JS sind
+                 alle 5 Felder sichtbar und der Button bleibt versteckt. -->
+            <button type="button" class="btn btn-ghost add-person" id="rsvpAddPerson" hidden>
+              + Person hinzufügen
+            </button>
+          </fieldset>
+
+          <!-- Feld 2: Zusage / Absage (Pflicht) -->
+          <div class="form-field">
+            <label id="rsvp-teilnahme-label">Könnt ihr kommen?</label>
+            <div class="radio-cards" role="radiogroup" aria-labelledby="rsvp-teilnahme-label">
+              <label class="radio-card">
+                <input type="radio" name="teilnahme" value="Zusage" required>
+                <span>Wir feiern mit! 🥂</span>
               </label>
-              <label style="display: inline-block;">
-                <input type="radio" name="attendance" value="no" required /> Ich komme nicht
+              <label class="radio-card">
+                <input type="radio" name="teilnahme" value="Absage">
+                <span>Leider nicht dabei 😢</span>
               </label>
             </div>
           </div>
 
-        <div class="form-group">
-          <label for="allergies">Allergien (falls zutreffend):</label>
-          <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, laktosefrei, Nussallergie..."></textarea>
-        </div>
+          <!-- TECHNIK: Alles ab hier wird nur bei „Zusage" angezeigt.
+               JavaScript blendet das Fieldset ein/aus und deaktiviert die
+               Felder bei Absage (deaktivierte Felder werden nicht gesendet).
+               Ohne JavaScript bleibt alles sichtbar. -->
+          <fieldset class="rsvp-details" id="rsvpDetails">
 
-        <button type="submit">Rückmeldung absenden</button>
-      </form>
+            <!-- Feld 3: E-Mail-Adresse -->
+            <div class="form-field">
+              <label for="rsvp-email">E-Mail-Adresse
+                <span class="hint">Wichtig, falls wir alle Gäste auf einmal erreichen müssen.
+                  Eure Adresse wird nicht an andere Gäste weitergegeben.</span>
+              </label>
+              <input type="email" id="rsvp-email" name="email" required autocomplete="email">
+            </div>
+
+            <!-- Feld 4: Essenswunsch & Allergien pro Person. JavaScript zeigt genauso
+                 viele Blöcke wie oben Personen eingetragen sind und übernimmt
+                 die Namen in die Beschriftungen. -->
+            <fieldset>
+              <legend>Essenswunsch, Allergien &amp; Unverträglichkeiten
+                <span class="hint">Bitte wählt für jede Person das Essen aus und tragt
+                  Allergien oder Unverträglichkeiten ein – oder lasst das Feld leer.</span>
+              </legend>
+
+              <div class="allergy-row" data-person="1">
+                <p class="menu-person"><span data-allergy-name>Person 1</span></p>
+                <div class="menu-fields">
+                  <div class="form-field">
+                    <label for="rsvp-person1-essen">Essenswunsch</label>
+                    <select id="rsvp-person1-essen" name="person1_essen" required>
+                      <option value="" disabled selected>Bitte wählen …</option>
+                      <option value="Fleisch">Fleisch</option>
+                      <option value="Vegetarisch">Vegetarisch</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="rsvp-person1-allergien">Allergien &amp; Unverträglichkeiten</label>
+                    <input type="text" id="rsvp-person1-allergien" name="person1_allergien">
+                  </div>
+                </div>
+              </div>
+              <div class="allergy-row" data-person="2">
+                <p class="menu-person"><span data-allergy-name>Person 2</span></p>
+                <div class="menu-fields">
+                  <div class="form-field">
+                    <label for="rsvp-person2-essen">Essenswunsch</label>
+                    <select id="rsvp-person2-essen" name="person2_essen">
+                      <option value="" disabled selected>Bitte wählen …</option>
+                      <option value="Fleisch">Fleisch</option>
+                      <option value="Vegetarisch">Vegetarisch</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="rsvp-person2-allergien">Allergien &amp; Unverträglichkeiten</label>
+                    <input type="text" id="rsvp-person2-allergien" name="person2_allergien">
+                  </div>
+                </div>
+              </div>
+              <div class="allergy-row" data-person="3">
+                <p class="menu-person"><span data-allergy-name>Person 3</span></p>
+                <div class="menu-fields">
+                  <div class="form-field">
+                    <label for="rsvp-person3-essen">Essenswunsch</label>
+                    <select id="rsvp-person3-essen" name="person3_essen">
+                      <option value="" disabled selected>Bitte wählen …</option>
+                      <option value="Fleisch">Fleisch</option>
+                      <option value="Vegetarisch">Vegetarisch</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="rsvp-person3-allergien">Allergien &amp; Unverträglichkeiten</label>
+                    <input type="text" id="rsvp-person3-allergien" name="person3_allergien">
+                  </div>
+                </div>
+              </div>
+              <div class="allergy-row" data-person="4">
+                <p class="menu-person"><span data-allergy-name>Person 4</span></p>
+                <div class="menu-fields">
+                  <div class="form-field">
+                    <label for="rsvp-person4-essen">Essenswunsch</label>
+                    <select id="rsvp-person4-essen" name="person4_essen">
+                      <option value="" disabled selected>Bitte wählen …</option>
+                      <option value="Fleisch">Fleisch</option>
+                      <option value="Vegetarisch">Vegetarisch</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="rsvp-person4-allergien">Allergien &amp; Unverträglichkeiten</label>
+                    <input type="text" id="rsvp-person4-allergien" name="person4_allergien">
+                  </div>
+                </div>
+              </div>
+              <div class="allergy-row" data-person="5">
+                <p class="menu-person"><span data-allergy-name>Person 5</span></p>
+                <div class="menu-fields">
+                  <div class="form-field">
+                    <label for="rsvp-person5-essen">Essenswunsch</label>
+                    <select id="rsvp-person5-essen" name="person5_essen">
+                      <option value="" disabled selected>Bitte wählen …</option>
+                      <option value="Fleisch">Fleisch</option>
+                      <option value="Vegetarisch">Vegetarisch</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="rsvp-person5-allergien">Allergien &amp; Unverträglichkeiten</label>
+                    <input type="text" id="rsvp-person5-allergien" name="person5_allergien">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Feld 5: Frühstück am nächsten Morgen -->
+            <fieldset>
+              <legend>Frühstück am nächsten Morgen
+                <span class="hint">Am Morgen nach der Feier frühstücken wir gemeinsam im
+                  Dippelshof und lassen das Fest ausklingen.</span>
+              </legend>
+
+              <div class="form-field">
+                <label id="rsvp-fruehstueck-label">Kommt ihr zum Frühstück dazu?</label>
+                <div class="radio-cards" role="radiogroup" aria-labelledby="rsvp-fruehstueck-label">
+                  <label class="radio-card">
+                    <input type="radio" name="fruehstueck" value="Ja">
+                    <span>Ja, gerne ☕</span>
+                  </label>
+                  <label class="radio-card">
+                    <input type="radio" name="fruehstueck" value="Nein">
+                    <span>Nein</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="checkbox-field">
+                <input type="checkbox" id="rsvp-fruehstueck-reservierung" name="fruehstueck_reservierung" value="Ja">
+                <label for="rsvp-fruehstueck-reservierung">Wir benötigen eine Reservierung fürs Frühstück
+                  <span class="hint">Nur nötig, wenn ihr nicht im Dippelshof übernachtet – für
+                    Hotelgäste ist das Frühstück bereits reserviert. Wir reservieren dann für
+                    euch mit; das Frühstück ist selbst zu bezahlen.</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Feld 6: Musikwunsch -->
+            <div class="form-field">
+              <label for="rsvp-musik">Musikwunsch
+                <span class="hint">Welcher Song bringt euch auf die Tanzfläche? Lieder können am Abend
+                  nicht spontan gewünscht werden. Die Lieder werden von uns dann ausgewählt.</span>
+              </label>
+              <input type="text" id="rsvp-musik" name="musikwunsch">
+            </div>
+
+            <!-- Feld 7: Nachricht -->
+            <div class="form-field">
+              <label for="rsvp-nachricht">Nachricht an uns
+                <span class="hint">z. B. besondere Wünsche, Tipps für die Kinderunterhaltung oder
+                  ob ihr eine Einladung auf Papier möchtet</span>
+              </label>
+              <textarea id="rsvp-nachricht" name="nachricht" rows="3"></textarea>
+            </div>
+
+            <!-- Feld 8: Foto-Einverständnis -->
+            <div class="checkbox-field">
+              <input type="checkbox" id="rsvp-fotos" name="foto_einverstaendnis" value="Ja" required>
+              <label for="rsvp-fotos">Ich bin einverstanden, dass bei der Feier Fotos gemacht werden
+                <span class="hint">Nach der Hochzeit teilen wir alle Bilder über einen
+                  passwortgeschützten, nicht öffentlich zugänglichen Link genau hier auf dieser
+                  Seite. Wir freuen uns, wenn ihr Fotos von der Feier nicht ohne Rückfrage bei uns
+                  postet.</span>
+              </label>
+            </div>
+
+          </fieldset>
+
+          <!-- TECHNIK: Honeypot steht bewusst NACH den sichtbaren Feldern,
+               damit Netlify den Namen von Person 1 (erstes Textfeld im
+               Formular) als Titel der Einsendung im Dashboard verwendet. -->
+          <p class="visually-hidden">
+            <label>Bitte nicht ausfüllen: <input name="bot-field"></label>
+          </p>
+
+          <button type="submit" class="btn form-submit">Antwort senden</button>
+
+          <!-- INHALT: Kontakt-E-Mail als Rückfall (echte Adresse eintragen) -->
+          <p class="form-note">Ihr erreicht uns auch unter <a href="mailto:tmg_heiraten@protonmail.com">tmg_heiraten@protonmail.com</a></p>
+          <p class="form-note">Nachrichten an die Trauzeugen Nicolai und Marcel bitte ebenfalls an diese E-Mail-Adresse. Falls wir diese Nachricht nicht lesen sollen, den Betreff mit [TRAUZEUGEN] beginnen.</p>
+
+          <!-- /INHALT -->
+        </form>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
     </section>
 
-    <footer>
-      <p>© 2027 | Wir freuen uns auf euch!</p>
-    </footer>
-  </div>
+    <!-- ===================================================================
+         FAQ
+         =================================================================== -->
+    <section class="band-creme" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head js-reveal">
+          <p class="eyebrow">Fragen &amp; Antworten</p>
+          <h2 id="faq-title">Häufige Fragen</h2>
+        </div>
 
-  <script>
-    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+        <!-- TECHNIK: Aufklapp-Fragen. Struktur (details/summary) nicht ändern;
+             nur Frage-Text und Antwort-Text zwischen den INHALT-Markern anpassen.
+             Blöcke dürfen kopiert oder gelöscht werden. Die h3-Zwischenüberschriften
+             gruppieren die Fragen (vor / während / nach der Feier). -->
+        <div class="faq js-reveal">
 
-      const formData = {
-        name: document.getElementById('name').value,
-        attendance: document.querySelector('input[name="attendance"]:checked').value,
-        allergies: document.getElementById('allergies').value
-      };
+          <!-- ===== Gruppe: Vor der Feier ===== -->
+          <h3 class="faq__group-title">Vor der Feier</h3>
 
-    // 👇 HIER: Zeige die Daten in der Browser-Console an
-    console.log('📤 Gesendete Daten:', formData);
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Sind Kinder und Partner:innen willkommen – auch wenn sie nicht explizit
+              eingeladen wurden?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Ja, natürlich! Bringt euren Partner/eure Partnerin und eure Kinder gerne mit,
+                 auch wenn sie nicht ausdrücklich auf der Einladung genannt wurden. Tragt sie
+                 einfach mit ins Anmeldeformular ein, damit wir gut planen können. Für die
+                 Kleinen wird es Unterhaltung geben – über Anregungen und Tipps freuen wir
+                 uns sehr. Schreibt sie einfach in das Feld „Nachricht an uns" im Formular.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
 
-      try {
-        const response = await fetch('/.netlify/functions/save-rsvp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Muss ich das Formular ausfüllen, wenn ich schon zugesagt habe?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Ja, bitte! Füllt das Formular auch dann aus, wenn ihr uns schon auf
+                 anderem Weg Bescheid gegeben habt – so behalten wir den Überblick.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
 
-        const data = await response.json();
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Bekommen wir auch eine Einladung auf Papier?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Gerne! Schreibt einfach in das Feld „Nachricht an uns" im Formular,
+                 dass ihr eine Einladung auf Papier möchtet.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
 
-        if (data.success) {
-          alert('Danke für deine Rückmeldung!');
-          e.target.reset();
-        } else {
-            alert('Fehler beim Speichern: ' + (data.error || 'Unbekannter Fehler'));
-        }
-      } catch (error) {
-        alert('Netzwerkfehler: ' + error.message);
-      }
-    });
-  </script>
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>An wen kann ich mich mit Fragen oder Überraschungsideen wenden?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort mit Kontakt -->
+              <p>Wenn ihr organisatorische Fragen habt, meldet euch gerne bei uns unter
+                 <a href="mailto:tmg_heiraten@protonmail.com">tmg_heiraten@protonmail.com</a>. Falls ihr eine Überraschung oder ein Programm-Punkt plant, dann gerne eine Nachrichten an die Trauzeugen Nicolai und Marcel an die selbe E-Mail Adresse senden und den Betreff mit [TRAUZEUGEN] beginnen.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <!-- ===== Gruppe: Am Tag der Feier ===== -->
+          <h3 class="faq__group-title">Am Tag der Feier</h3>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Wo kann ich parken?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Vor dem Dippelshof gibt es genügend kostenlose (öffentliche)
+                 Parkplätze.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Ich übernachte im Dippelshof – wann kann ich ein- und auschecken?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Der Check-in ist ab 15:00 Uhr am Anreisetag möglich, der Check-out
+                 bis 11:00 Uhr am Abreisetag.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Darf ich eigene Speisen oder Getränke mitbringen?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Für euer leibliches Wohl ist bestens gesorgt! Eigene Speisen und
+                 Getränke mitzubringen ist am Dippelshof leider grundsätzlich nicht
+                 gestattet.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Dürfen wir fotografieren?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort (freundliche „Unplugged"-Bitte) -->
+              <p>Während der Trauung bitten wir euch, Handys und Kameras in der Tasche
+                 zu lassen und den Moment ganz bewusst mit uns zu genießen. Beim Rest
+                 der Feier freuen wir uns über viele gemeinsame Erinnerungsfotos – und
+                 genauso darüber, wenn ihr zwischendurch einfach den Augenblick mit
+                 uns erlebt.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Wie lange wird gefeiert?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Um 1:00 Uhr wird die Musik ausgeschaltet – danach bitten wir euch,
+                 den Abend entspannt ausklingen zu lassen und in Ruhe die Betten aufzusuchen.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Gibt es Hausregeln am Dippelshof, die wir beachten sollten?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Ein paar Dinge bittet uns der Dippelshof zu beachten: Der Genuss von
+                 Cannabis ist auf dem gesamten Gelände und im Hotel nicht erlaubt.
+                 Bitte geht außerdem sorgsam mit Einrichtung und Inventar um und seid
+                 vorsichtig mit Kugelschreibern, Stiften, Farben und Ähnlichem – Parkett,
+                 Teppich und Wände danken es euch. Für Schäden am Gebäude oder Mobiliar
+                 wird gehaftet. Reis sowie Folien- oder Kunststoffblüten dürfen nicht geworfen werden, weder im Park noch im Gebäude. Echte Blütenblätter oder Seifenblasen
+                 sind jedoch eine schöne Alternative.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Sollte ich auf meine Wertsachen aufpassen?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Ja, bitte behaltet eure persönlichen Gegenstände im Blick – für
+                 mitgebrachte Sachen kann leider keine Haftung übernommen werden.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+
+          <!-- ===== Gruppe: Nach der Feier ===== -->
+          <h3 class="faq__group-title">Nach der Feier</h3>
+
+          <details>
+            <!-- INHALT: Frage -->
+            <summary>Werden auf der Feier Fotos gemacht – und wie bekomme ich sie später?</summary>
+            <!-- /INHALT -->
+            <div class="faq__answer">
+              <!-- INHALT: Antwort -->
+              <p>Ja! Ein Fotograf begleitet uns durch den Tag und macht Gruppenfotos
+                 sowie Bilder von der Feier. Auch von den Gästen werden dabei Fotos
+                 entstehen – euer Einverständnis dazu fragen wir im Anmeldeformular ab.
+                 Nach der Hochzeit teilen wir alle Bilder über einen passwortgeschützten,
+                 nicht öffentlich zugänglichen Bereich, den ihr im Abschnitt „Galerie"
+                 auf dieser Seite findet. Bitte postet Fotos von der Feier nicht ohne
+                 Rückfrage bei uns.</p>
+              <!-- /INHALT -->
+            </div>
+          </details>
+        </div>
+        <!-- TECHNIK: Ornament am Sektionsende – nicht ändern -->
+        <img class="ornament ornament--end" src="images/monstera-ornament.svg" width="200" height="65" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================
+       FOOTER
+       =================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <!-- INHALT: Monogramm = eure Initialen -->
+      <a class="monogram" href="#start" aria-label="Zum Seitenanfang">
+        <!-- TECHNIK: Monstera-Blatt -->
+        <img src="images/monstera-leaf.png" alt="" aria-hidden="true">
+      </a>
+      <!-- /INHALT -->
+
+      <!-- INHALT: Namen -->
+      <p class="footer-names">Thomas &amp; Mona</p>
+      <!-- /INHALT -->
+      <!-- INHALT: Datum (siehe Anleitung: hier ebenfalls ändern) -->
+      <p class="footer-date">26. Mai 2027 · Mühltal</p>
+      <!-- /INHALT -->
+
+      <!-- INHALT: Abschiedssatz, kurz und herzlich -->
+      <p class="footer-closing">Wir freuen uns auf euch!</p>
+      <!-- /INHALT -->
+
+      <!-- TECHNIK: Mini-Navigation – Ziele müssen zu den Sektions-IDs passen -->
+      <ul class="footer-nav">
+        <li><a href="#willkommen">Willkommen</a></li>
+        <li><a href="#ablauf">Ablauf</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#uebernachtung">Übernachtung</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#rsvp">Zusagen</a></li>
+      </ul>
+
+      <div class="footer-legal">
+        <!-- RECHTLICHER HINWEIS: Impressum/Datenschutz-Links wurden bewusst entfernt –
+             die Seite ist eine private, nicht öffentlich beworbene Einladungsseite.
+             Bei Bedarf hier wieder einfügen. -->
+        <!-- INHALT: kleiner Copyright-/Schlusszeile. Die Jahreszahl wird per JS gesetzt. -->
+        <p>&copy; <span id="footerYear">2026</span> Thomas &amp; Mona</p>
+        <!-- /INHALT -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox entfernt – die Galerie zeigt keine Fotos mehr, sondern einen
+       Hinweis auf den Foto-Link. Das JavaScript erkennt das automatisch. -->
+
+  <!-- TECHNIK: JavaScript – nicht ändern -->
+  <script src="js/main.js"></script>
 </body>
 </html>

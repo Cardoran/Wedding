@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unsere Hochzeit</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <script>
+    // Prüfe, ob User authentifiziert ist
+    fetch('/.netlify/functions/check-auth')
+      .then(response => {
+        if (!response.ok) {
+          window.location.href = '/index.html';
+        }
+      });
+  </script>
+
+  <div class="container">
+    <header>
+      <h1>Unsere Hochzeit</h1>
+      <p class="subtitle">Wir freuen uns auf diesen besonderen Tag mit dir</p>
+    </header>
+
+    <!-- ========== WICHTIGE INFOS ========== -->
+    <section id="info">
+      <h2>Wichtige Informationen</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <h3>📅 Datum</h3>
+          <p>Samstag, 29. Mai 2027</p>
+        </div>
+        <div class="info-item">
+          <h3>⏰ Uhrzeit</h3>
+          <p>13:00 Uhr</p>
+        </div>
+        <div class="info-item">
+          <h3>📍 Ort</h3>
+          <p>Hochzeitsturm Darmstadt<br>Mathildenhöhe 2<br>64293 Darmstadt</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TAGESABLAUF ========== -->
+    <section id="agenda">
+      <h2>Tagesablauf</h2>
+      <div class="agenda">
+        <div class="agenda-item">
+          <p><span class="time">13:00 Uhr</span> – Trauung im Hochzeitsturm (Mathildenhöhe 2, 64293 Darmstadt)</p>
+        </div>
+        <div class="agenda-item">
+          <p><span class="time">ab ca. 13:45 Uhr</span> – Sektempfang vor dem Hochzeitsturm mit Snacks (Mathildenhöhe 2, 64293 Darmstadt)</p>
+        </div>
+        <div class="agenda-item">
+          <p><span class="time">ab 15:00 Uhr</span> – Eintreffen am Oberwaldhaus mit Getränken und Snacks (Dieburger Landstraße 24, 64293 Darmstadt)</p>
+        </div>
+        <div class="agenda-item">
+          <p><span class="time">ca. 19:00 Uhr</span> – Abendessen (Oberwaldhaus)</p>
+        </div>
+        <div class="agenda-item">
+          <p><span class="time">danach irgendwann</span> – Party oder so (Oberwaldhaus)</p>
+        </div>
+        <div class="agenda-item">
+          <p><span class="time">03:00 Uhr</span> – Ende (länger dürfen wir nicht)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RÜCKMELDUNG ========== -->
+    <section id="rsvp">
+      <h2>Rückmeldung</h2>
+      <p>Bitte teile uns bis zum <strong>30. April 2027</strong> mit, ob du dabei bist.<br>
+      Das Essen wird rein vegetarisch/vegan sein.<br>
+      Bitte Begleitpersonen getrennt eintragen, das vereinfacht uns die Übersicht.</p>
+
+      <form id="rsvp-form">
+
+        <div class="form-group">
+          <label for="name">Vor- und Nachname:</label>
+          <input type="text" id="name" name="name" required placeholder="Tina Testperson" />
+        </div>
+        
+        <div class="form-group">
+            <div style="margin-top: 0.5rem;">
+              <label style="display: inline-block; margin-right: 1rem;">
+                <input type="radio" name="attendance" value="yes" checked required /> Ich komme
+              </label>
+              <label style="display: inline-block;">
+                <input type="radio" name="attendance" value="no" required /> Ich komme nicht
+              </label>
+            </div>
+          </div>
+
+        <div class="form-group">
+          <label for="allergies">Allergien (falls zutreffend):</label>
+          <textarea id="allergies" name="allergies" placeholder="z. B. glutenfrei, laktosefrei, Nussallergie..."></textarea>
+        </div>
+
+        <button type="submit">Rückmeldung absenden</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>© 2027 | Wir freuen uns auf euch!</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById('name').value,
+        attendance: document.querySelector('input[name="attendance"]:checked').value,
+        allergies: document.getElementById('allergies').value
+      };
+
+    // 👇 HIER: Zeige die Daten in der Browser-Console an
+    console.log('📤 Gesendete Daten:', formData);
+
+      try {
+        const response = await fetch('/.netlify/functions/save-rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Danke für deine Rückmeldung!');
+          e.target.reset();
+        } else {
+            alert('Fehler beim Speichern: ' + (data.error || 'Unbekannter Fehler'));
+        }
+      } catch (error) {
+        alert('Netzwerkfehler: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
