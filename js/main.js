@@ -341,22 +341,28 @@
               var personRow = form.querySelector('.person-row[data-person="' + i + '"]');
               var allergyRow = form.querySelector('.allergy-row[data-person="' + i + '"]');
           
-              if (personRow) {
-                personRow.style.display = show ? '' : 'none';
-              }
-          
-              if (allergyRow) {
-                allergyRow.style.display = show ? '' : 'none';
-              }
+              if (personRow) personRow.hidden = !show;
+              if (allergyRow) allergyRow.hidden = !show;
             }
           
-            if (addBtn) {
-              addBtn.hidden = visiblePersons >= MAX;
-            }
+            if (addBtn) addBtn.hidden = visiblePersons >= MAX;
           
             syncAllergyLabels();
           }
           
+          function syncAllergyLabels() {
+            for (var i = 1; i <= MAX; i++) {
+              var span = form.querySelector(
+                '.allergy-row[data-person="' + i + '"] [data-allergy-name]'
+              );
+              var input = nameInput(i);
+          
+              if (span) {
+                span.textContent =
+                  (input && input.value.trim()) || ('Person ' + i);
+              }
+            }
+          }   
   
       // Blendet den Detail-Bereich nur bei „Zusage" ein.
       function syncDetails() {
