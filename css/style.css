@@ -107,11 +107,11 @@
     --slate:        #BA9699;  /* Akzent 2 (Altrosa): siehe --forest */
     --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
     --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
-    --forest-deep:  #D63B19;  /* Hero-Overlay, Hover-Zustände */
+    --forest-deep:  #825D6D;  /* Hero-Overlay, Hover-Zustände */
     --accent:       #825D6D;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
-    --accent-light: #D6D2C5;  /* helle Akzente (Text/Hover) auf dunklem Grund */
+    --accent-light: #FAF6EE;  /* helle Akzente (Text/Hover) auf dunklem Grund */
     --ink:          #2E2A24;  /* Fließtext (warmes Fast-Schwarz) */
-    --paper:        #FFFFFF;  /* Formularfelder, Karten */
+    --paper:        #FAF6EE;  /* Formularfelder, Karten */
   
     /* Farbverläufe (Fading statt Einfarbigkeit) */
     --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 100%);
