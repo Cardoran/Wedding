@@ -12,3 +12,7 @@
   from = "/main"
   to = "/main.html"
   status = 200
+
+[[edge_functions]]
+  function = "auth"
+  path = "/main.html"

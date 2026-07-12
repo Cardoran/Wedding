@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        "Set-Cookie": `auth=true; Path=/; Max-Age=2592000; HttpOnly; SameSite=Lax`,
+        "Set-Cookie": `auth=true; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ success: true })
