@@ -103,7 +103,7 @@
        Akzent-Texte auf hellem Grund gibt es --accent (#44584C, abgedunkeltes
        Salbei, 5.1:1 selbst auf Greige). Reines Salbei ist NUR dekorativ. */
     --creme:        #FAF6EE;  /* Seitenhintergrund, Text auf dunklem Grund */
-    --creme-dark:   #BA9699;  /* Akzent 1 (Greige): Sektionsbänder, Karten */
+    --creme-dark:   #E5B9BD;  /* Akzent 1 (Greige): Sektionsbänder, Karten */
     --slate:        #BA9699;  /* Akzent 2 (Altrosa): siehe --forest */
     --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
     --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
@@ -121,9 +121,9 @@
     --grad-text:    linear-gradient(120deg, var(--forest) 0%, var(--forest) 55%, var(--forest) 100%);
   
     /* abgeleitete / halbtransparente Töne */
-    --sage-line:    rgba(139 159 139 / 0.55);
-    --shadow-soft:  0 8px 30px rgb(27 55 64 / 0.08);
-    --shadow-lift:  0 14px 40px rgb(27 55 64 / 0.14);
+    --sage-line:    var(--forest);
+    --shadow-soft:  0 8px 30px var(--altrosa-dark);
+    --shadow-lift:  0 14px 40px var(--altrosa-dark);
   
     /* Schriften – mit System-Fallback, falls woff2 fehlen */
     --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
