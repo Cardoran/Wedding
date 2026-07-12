@@ -584,10 +584,10 @@
     /* background-image: linear-gradient(rgb(16 40 48 / 0.55), rgb(16 40 48 / 0.65)), url('../images/hero.jpg'); */
     background-color: var(--forest-deep);
     background-image:
-      radial-gradient(120% 90% at 15% 15%, rgb(139 159 139 / 0.32), transparent 60%),
-      radial-gradient(100% 80% at 85% 20%, rgb(27 55 64 / 0.6), transparent 55%),
-      radial-gradient(140% 120% at 50% 110%, rgb(13 29 36 / 0.95), rgb(13 29 36 / 0.4)),
-      linear-gradient(160deg, #33504E 0%, #1B3740 55%, #10222A 100%);
+      radial-gradient(120% 90% at 15% 15%, var(--forest), transparent 60%),
+      radial-gradient(100% 80% at 85% 20%, var(--slate), transparent 55%),
+      radial-gradient(140% 120% at 50% 110%, var(--slate), var(--forest)),
+      linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);
     background-size: cover;
     background-position: center;
   }
