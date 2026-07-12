@@ -108,16 +108,16 @@
     --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
     --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
     --forest-deep:  #D63B19;  /* Hero-Overlay, Hover-Zustände */
-    --accent:       #D1CDED;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
+    --accent:       #825D6D;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
     --accent-light: #D6D2C5;  /* helle Akzente (Text/Hover) auf dunklem Grund */
     --ink:          #2E2A24;  /* Fließtext (warmes Fast-Schwarz) */
     --paper:        #FFFFFF;  /* Formularfelder, Karten */
   
     /* Farbverläufe (Fading statt Einfarbigkeit) */
-    --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 45%, var(--creme) 100%);
+    --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 100%);
     --grad-btn:     linear-gradient(135deg, var(--slate) 0%, var(--creme) 100%);
-    --grad-btn-hover: linear-gradient(135deg, var(--forest-deep) 0%, var(--forest) 100%);
-    --grad-text:    linear-gradient(120deg, var(--slate) 0%, var(--ink) 55%, var(--creme) 100%);
+    --grad-btn-hover: linear-gradient(135deg, var(--forest) 0%, var(--forest) 100%);
+    --grad-text:    linear-gradient(120deg, var(--forest) 0%, var(--forest) 55%, var(--forest) 100%);
   
     /* abgeleitete / halbtransparente Töne */
     --sage-line:    rgba(139 159 139 / 0.55);
