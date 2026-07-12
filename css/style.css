@@ -115,7 +115,7 @@
   
     /* Farbverläufe (Fading statt Einfarbigkeit) */
     --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 100%);
-    --grad-btn:     linear-gradient(135deg, var(--slate) 0%, var(--creme) 100%);
+    --grad-btn:     linear-gradient(135deg, var(--slate) 0%, var(--slate) 100%);
     --grad-btn-hover: linear-gradient(135deg, var(--forest) 0%, var(--forest) 100%);
     --grad-text:    linear-gradient(120deg, var(--forest) 0%, var(--forest) 55%, var(--forest) 100%);
   
@@ -584,10 +584,10 @@
     /* background-image: linear-gradient(rgb(16 40 48 / 0.55), rgb(16 40 48 / 0.65)), url('../images/hero.jpg'); */
     background-color: var(--forest-deep);
     background-image:
-      radial-gradient(120% 90% at 15% 15%, var(--forest), transparent 60%),
+      radial-gradient(120% 90% at 15% 15%, var(--forest-deep), transparent 60%),
       radial-gradient(100% 80% at 85% 20%, var(--slate), transparent 55%),
       radial-gradient(140% 120% at 50% 110%, var(--slate), var(--forest)),
-      linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);
+      /*linear-gradient(160deg, var(--forest) 0%,  var(--slate) 100%);*/
     background-size: cover;
     background-position: center;
   }
