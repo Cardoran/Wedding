@@ -1,0 +1,1567 @@
+/* =========================================================================
+   Hochzeitswebseite – style.css
+   Alle Stile, mobile-first. Farb- und Schrift-Tokens stehen ganz oben.
+
+   Aufbau dieser Datei:
+     1. @font-face (selbst gehostete Schriften – DSGVO-freundlich)
+     2. Design-Tokens (:root Custom Properties)
+     3. Reset & Grundlagen
+     4. Hilfsklassen (visually-hidden, Container, Buttons, Ornamente …)
+     5. Sektionen in Reihenfolge der Seite
+     6. Motion / Scroll-Reveal / prefers-reduced-motion
+
+   HINWEIS ZUM INHALT-MODELL: In dieser CSS-Datei muss nichts geändert werden.
+   ========================================================================= */
+
+
+/* =========================================================================
+   1. SCHRIFTEN – selbst gehostet (DSGVO)
+   Die woff2-Dateien liegen im Ordner /fonts und werden NICHT von Google
+   nachgeladen. So bleiben keine IP-Adressen der Gäste bei Google hängen.
+
+   Sollten die Schriftdateien fehlen, greift automatisch der System-Stack
+   (siehe --font-display / --font-body weiter unten).
+   ========================================================================= */
+   @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-500.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-500italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-600.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/cormorant-garamond-v21-latin-600italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/jost-v20-latin-regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/jost-v20-latin-500.woff2') format('woff2');
+  }
+  /* Scriptina – kalligrafische Schrift für die Namen & Sektions-Überschriften */
+  @font-face {
+    font-family: 'Scriptina';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/scriptina.ttf') format('truetype');
+  }
+  
+  
+  /* =========================================================================
+     2. DESIGN-TOKENS
+     ========================================================================= */
+  :root {
+    /* Farben
+       Die drei AKZENTFARBEN der Seite:
+         Greige  #D6D2C5 – helle Akzente & Sektionsbänder
+         Schiefer #1B3740 – dunkles Petrol-Blau: Überschriften, Buttons, Bänder
+         Salbei  #8B9F8B – Linien, Punkte, Icons (dekorativ)
+       Dunkle Flächen laufen als Verlauf Schiefer -> Schiefer-Salbei-Mischton.
+       KONTRAST: der hellste Verlaufs-Stopp (#47615E) hält mit dem Creme-Text
+       noch 6.2:1 (WCAG AA) – bei Änderungen nicht aufhellen! Für kleine
+       Akzent-Texte auf hellem Grund gibt es --accent (#44584C, abgedunkeltes
+       Salbei, 5.1:1 selbst auf Greige). Reines Salbei ist NUR dekorativ. */
+    --creme:        #FAF6EE;  /* Seitenhintergrund, Text auf dunklem Grund */
+    --creme-dark:   #D6D2C5;  /* Akzent 1 (Greige): Sektionsbänder, Karten */
+    --slate:        #1B3740;  /* Akzent 2 (Schiefer): siehe --forest */
+    --sage:         #8B9F8B;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
+    --forest:       #1B3740;  /* primär (= Schiefer): Überschriften, Buttons, Links */
+    --forest-deep:  #10222A;  /* Hero-Overlay, Hover-Zustände */
+    --accent:       #44584C;  /* abgedunkeltes Salbei für kleine Akzent-Texte/Icons */
+    --accent-light: #D6D2C5;  /* helle Akzente (Text/Hover) auf dunklem Grund */
+    --ink:          #2E2A24;  /* Fließtext (warmes Fast-Schwarz) */
+    --paper:        #FFFFFF;  /* Formularfelder, Karten */
+  
+    /* Farbverläufe (Fading statt Einfarbigkeit) */
+    --grad-band:    linear-gradient(135deg, #16303A 0%, #1B3740 45%, #47615E 100%);
+    --grad-btn:     linear-gradient(135deg, #1B3740 0%, #47615E 100%);
+    --grad-btn-hover: linear-gradient(135deg, #10222A 0%, #35504B 100%);
+    --grad-text:    linear-gradient(120deg, #1B3740 0%, #2E4A4C 55%, #47615E 100%);
+  
+    /* abgeleitete / halbtransparente Töne */
+    --sage-line:    rgba(139 159 139 / 0.55);
+    --shadow-soft:  0 8px 30px rgb(27 55 64 / 0.08);
+    --shadow-lift:  0 14px 40px rgb(27 55 64 / 0.14);
+  
+    /* Schriften – mit System-Fallback, falls woff2 fehlen */
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-script:  'Scriptina', 'Cormorant Garamond', Georgia, cursive;
+    --font-body:    'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  
+    /* Layout */
+    --content-max:  72rem;
+    --measure:      65ch;
+    --header-h:     4.5rem;
+  
+    /* Radien & Übergänge */
+    --radius:       4px;
+    --radius-lg:    10px;
+    --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  
+  
+  /* =========================================================================
+     3. RESET & GRUNDLAGEN
+     ========================================================================= */
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  * { margin: 0; }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink);
+    background-color: var(--creme);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  
+  img { max-width: 100%; height: auto; display: block; }
+  
+  a { color: var(--forest); text-decoration-color: var(--sage); text-underline-offset: 3px; }
+  
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--forest);
+    letter-spacing: 0.01em;
+  }
+  
+  /* h2 kursiv in der Display-Serifenschrift – gleiche Anmutung wie die
+     Grußzeile/.signature („Wir freuen uns auf euch …"). */
+  h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  /* Farbverlauf in der Überschrift (nur auf hellen Bändern; auf dem dunklen
+     RSVP-Band bleibt die Schrift creme). Fällt ohne background-clip-Support
+     automatisch auf einfarbiges Petrol zurück. */
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    section:not(.band-forest) h2 {
+      background-image: var(--grad-text);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  
+  p { max-width: var(--measure); }
+  
+  /* sichtbarer Fokus überall */
+  :focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  /* Auf dunklem Grund heller Fokusring */
+  .band-forest :focus-visible,
+  .site-footer :focus-visible,
+  .hero :focus-visible {
+    outline-color: var(--accent-light);
+  }
+  
+  
+  /* =========================================================================
+     4. HILFSKLASSEN
+     ========================================================================= */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Skip-Link */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 200;
+    background: var(--forest);
+    color: var(--creme);
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius);
+    transition: top 0.2s var(--ease);
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 1rem; }
+  
+  .container {
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  
+  section {
+    padding-block: clamp(3.5rem, 9vw, 6.5rem);
+    scroll-margin-top: var(--header-h);
+  }
+  
+  /* abwechselnde Hintergründe */
+  .band-creme      { background: var(--creme); }
+  .band-creme-dark { background: var(--creme-dark); }
+  .band-forest     { background: var(--forest); background-image: var(--grad-band); color: var(--creme); }
+  .band-forest h2,
+  .band-forest h3  { color: var(--creme); }
+  
+  /* Eyebrow / Kapitälchen-Label */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+  }
+  .band-forest .eyebrow,
+  .hero .eyebrow { color: var(--accent-light); } /* hellere Goldstufe: besserer Kontrast auf Petrol */
+  
+  /* Sektions-Überschrift */
+  .section-head { text-align: center; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+  .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .section-head p  { margin-inline: auto; color: color-mix(in srgb, var(--ink) 85%, transparent); }
+  .band-forest .section-head p { color: color-mix(in srgb, var(--creme) 85%, transparent); }
+  
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.98rem;
+    letter-spacing: 0.03em;
+    padding: 0.85rem 1.8rem;
+    border-radius: var(--radius);
+    border: 1.5px solid transparent;
+    background-color: var(--forest);
+    background-image: var(--grad-btn);
+    color: var(--creme);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.25s var(--ease), color 0.25s var(--ease),
+                border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .btn:hover { background-color: var(--forest-deep); background-image: var(--grad-btn-hover); }
+  .btn:active { transform: translateY(1px); }
+  
+  /* Ghost-Button (outline) */
+  .btn-ghost {
+    background-color: transparent;
+    background-image: none;
+    color: var(--forest);
+    border-color: var(--forest);
+  }
+  .btn-ghost:hover {
+    background-color: var(--forest);
+    background-image: var(--grad-btn);
+    color: var(--creme);
+    border-color: transparent;
+  }
+  
+  /* auf dunklem Grund invertiert */
+  .band-forest .btn {
+    background-color: var(--creme);
+    background-image: none;
+    color: var(--forest);
+    border-color: var(--creme);
+  }
+  .band-forest .btn:hover { background-color: var(--accent-light); border-color: var(--accent-light); color: var(--forest); }
+  .band-forest .btn-ghost {
+    background-color: transparent;
+    background-image: none;
+    color: var(--creme);
+    border-color: var(--sage);
+  }
+  .band-forest .btn-ghost:hover { background-color: var(--creme); background-image: none; color: var(--forest); border-color: var(--creme); }
+  
+  /* Ornamente (Inline-SVG) – Farbe per currentColor gesteuert */
+  .ornament { display: block; margin-inline: auto; color: var(--sage); }
+  .ornament--gold { color: var(--accent); }
+  /* Ornament am Ende jeder Sektion, dicht am letzten Inhalt */
+  .ornament--end { margin-top: 2.25rem; }
+  
+  /* Divider zwischen Sektionen */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 0.5rem;
+    color: var(--sage);
+  }
+  
+  
+  /* =========================================================================
+     PASSWORT-SCHUTZ (Overlay über der ganzen Seite)
+     ========================================================================= */
+  .password-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 300; /* über Header (100), Mobilmenü (150) und allem anderen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--forest);
+    background-image: var(--grad-band);
+  }
+  .password-gate.is-unlocked { display: none; }
+  .password-gate__card {
+    width: 100%;
+    max-width: 24rem;
+    text-align: center;
+    background: var(--creme);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 5vw, 2.8rem);
+    box-shadow: var(--shadow-lift);
+  }
+  .password-gate__card img { width: 3rem; margin-inline: auto; margin-bottom: 0.9rem; }
+  .password-gate__card h2 { font-size: 1.7rem; margin-bottom: 0.4rem; }
+  .password-gate__card p { margin-inline: auto; font-size: 0.95rem; color: color-mix(in srgb, var(--ink) 80%, transparent); }
+  .password-gate__card input {
+    width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.75rem 0.9rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    text-align: center;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--sage);
+    border-radius: var(--radius);
+  }
+  .password-gate__card input:focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 1px;
+    border-color: var(--forest);
+  }
+  .password-gate__card .btn { width: 100%; justify-content: center; margin-top: 0.9rem; }
+  .password-gate__error {
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    color: #9C3B2A; /* gedecktes Rot, 5:1 auf Creme */
+  }
+  /* Wackeln bei falschem Passwort */
+  .password-gate--error .password-gate__card { animation: gateShake 0.4s var(--ease); }
+  @keyframes gateShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-9px); }
+    75%      { transform: translateX(9px); }
+  }
+  
+  
+  /* =========================================================================
+     5. HEADER / NAVIGATION
+     ========================================================================= */
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  /* transparent über dem Hero – nach dem Scrollen creme + feiner Schatten */
+  .site-header.is-scrolled {
+    background: color-mix(in srgb, var(--creme) 94%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 1px 0 var(--sage-line), 0 6px 20px rgb(34 64 47 / 0.06);
+  }
+  
+  .monogram {
+    font-family: var(--font-script);
+    font-weight: 400;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
+    color: var(--creme);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s var(--ease);
+  }
+  .monogram svg { width: 1.6rem; height: 1.6rem; }
+  /* Monstera-Blatt als Logo im Header */
+  .monogram img { width: 2.1rem; height: auto; }
+  /* über dem dunklen Hero bekommt das dunkle Blatt einen zarten hellen Schein,
+     damit es sichtbar bleibt; nach dem Scrollen (heller Header) nicht mehr nötig */
+  .site-header:not(.is-scrolled) .monogram img {
+    filter: drop-shadow(0 0 6px rgb(250 246 238 / 0.65));
+  }
+  .site-header.is-scrolled .monogram { color: var(--forest); }
+  
+  /* Desktop-Navigation */
+  .nav-desktop { display: none; }
+  .nav-desktop ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    padding: 0;
+  }
+  .nav-desktop a {
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    color: var(--creme);
+    text-decoration: none;
+    padding: 0.3rem 0;
+    position: relative;
+    transition: color 0.25s var(--ease);
+  }
+  .nav-desktop a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -2px;
+    width: 100%; height: 1.5px;
+    background: var(--sage);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease);
+  }
+  .nav-desktop a:hover::after { transform: scaleX(1); }
+  .site-header.is-scrolled .nav-desktop a { color: var(--forest); }
+  
+  /* RSVP-Link als Button */
+  .nav-desktop .nav-cta {
+    background: var(--accent-light);
+    color: var(--forest);
+    padding: 0.5rem 1.1rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+  }
+  .nav-desktop .nav-cta::after { display: none; }
+  .nav-desktop .nav-cta:hover { background: var(--creme); color: var(--forest-deep); }
+  .site-header.is-scrolled .nav-desktop .nav-cta { color: var(--forest-deep); }
+  
+  /* Hamburger */
+  .nav-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.75rem; height: 2.75rem;
+    padding: 0.6rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--creme);
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease), opacity 0.2s var(--ease), background 0.3s var(--ease);
+  }
+  .site-header.is-scrolled .nav-toggle span { background: var(--forest); }
+  
+  /* Vollbild-Overlay-Menü (mobil) */
+  .nav-mobile {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: var(--forest);
+    background-image: var(--grad-band);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.4s var(--ease), visibility 0.4s var(--ease);
+  }
+  .nav-mobile.is-open { transform: translateY(0); visibility: visible; }
+  .nav-mobile ul { list-style: none; padding: 0; text-align: center; }
+  .nav-mobile a {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+    font-weight: 500;
+    color: var(--creme);
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s var(--ease);
+  }
+  .nav-mobile a:hover { color: var(--accent-light); }
+  .nav-mobile .nav-cta { color: var(--accent-light); }
+  
+  .nav-close {
+    position: absolute;
+    top: 1.1rem; right: 1.3rem;
+    width: 2.75rem; height: 2.75rem;
+    background: transparent;
+    border: 0;
+    color: var(--creme);
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 1;
+  }
+  
+  
+  /* =========================================================================
+     HERO
+     ========================================================================= */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--creme);
+    overflow: hidden;
+    /* Hintergrund: reine CSS-Verläufe in Waldtönen + feine Körnung.
+       FOTO EINSETZEN: Um ein echtes Foto zu nutzen, die folgende Zeile
+       einkommentieren und die Datei nach images/ legen (z. B. hero.jpg): */
+    /* background-image: linear-gradient(rgb(16 40 48 / 0.55), rgb(16 40 48 / 0.65)), url('../images/hero.jpg'); */
+    background-color: var(--forest-deep);
+    background-image:
+      radial-gradient(120% 90% at 15% 15%, rgb(139 159 139 / 0.32), transparent 60%),
+      radial-gradient(100% 80% at 85% 20%, rgb(27 55 64 / 0.6), transparent 55%),
+      radial-gradient(140% 120% at 50% 110%, rgb(13 29 36 / 0.95), rgb(13 29 36 / 0.4)),
+      linear-gradient(160deg, #33504E 0%, #1B3740 55%, #10222A 100%);
+    background-size: cover;
+    background-position: center;
+  }
+  /* feine Körnung als Overlay (reines SVG-Noise, kein externes Bild) */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  /* Foto: Hände mit Ringen – die Alpha-Maske (weiche Ränder) steckt im Bild
+     selbst, daher verschmilzt es ohne harte Kanten mit dem dunklen Verlauf.
+     Liegt mittig unterhalb von Text & Countdown am unteren Sektionsrand.
+     Blendet nach dem Laden langsam ein. */
+  .hero__photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero__photo img {
+    --photo-opacity: 0.38;
+    position: absolute;
+    bottom: -12%;
+    right: 50%;
+    width: min(34rem, 120vw);
+    height: auto;
+    transform: translateX(50%) rotate(6deg);
+    opacity: var(--photo-opacity);
+    filter: saturate(0.95);
+    animation: heroPhotoIn 2.4s var(--ease) 0.3s both;
+  }
+  @keyframes heroPhotoIn {
+    from { opacity: 0; }
+    to   { opacity: var(--photo-opacity); }
+  }
+  
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 1.5rem 4rem;
+    max-width: 60rem;
+  }
+  .hero__names {
+    font-family: var(--font-script);
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--creme);
+    margin-block: 0.4rem;
+  }
+  .hero__names .amp {
+    font-style: normal; /* Scriptina hat keinen Kursivschnitt – kein Faux-Italic */
+    font-weight: 400;
+    color: var(--accent-light);
+    padding-inline: 0.15em;
+  }
+  .hero__names .name-b { font-style: normal; font-weight: 400; }
+  
+  /* dünne Goldlinie */
+  .hero__rule {
+    width: 0; /* wird per Pseudo animiert nicht nötig – feste Breite */
+    border: 0;
+    height: 1.5px;
+    width: min(220px, 60%);
+    margin: 1.6rem auto;
+    background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+  }
+  .hero__date {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    letter-spacing: 0.08em;
+    color: color-mix(in srgb, var(--creme) 92%, transparent);
+  }
+  
+  /* Countdown */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.8rem, 4vw, 2.4rem);
+    margin-top: 2.6rem;
+    flex-wrap: wrap;
+  }
+  .countdown__unit { min-width: 3.5rem; }
+  .countdown__num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--creme);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown__label {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--creme) 75%, transparent);
+  }
+  /* Nachricht wenn das Datum vergangen ist */
+  .countdown--past {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    color: var(--accent-light);
+    display: block;
+  }
+  
+  /* Scroll-Cue */
+  .scroll-cue {
+    position: absolute;
+    bottom: 1.8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: var(--creme);
+    opacity: 0.8;
+    animation: bob 2.4s var(--ease) infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, 8px); }
+  }
+  
+  
+  /* =========================================================================
+     WILLKOMMEN
+     ========================================================================= */
+  .willkommen__grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  /* ohne Brautpaar-Foto: Text mittig als ruhiges Ensemble */
+  .willkommen__text {
+    max-width: var(--measure);
+    margin-inline: auto;
+    text-align: center;
+  }
+  .willkommen__text p { margin-inline: auto; }
+  .willkommen__text p + p { margin-top: 1rem; }
+  .willkommen__text .signature {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--forest);
+    margin-top: 1.5rem;
+  }
+  
+  
+  /* =========================================================================
+     FOTO-PLATZHALTER (wiederverwendbar)
+     ========================================================================= */
+  .foto-platzhalter {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(150deg, var(--sage) 0%, var(--creme-dark) 70%);
+    border: 1px solid var(--sage-line);
+    border-radius: var(--radius-lg);
+    color: var(--forest);
+    overflow: hidden;
+  }
+  .foto-platzhalter svg { width: 3rem; height: 3rem; opacity: 0.75; }
+  .foto-platzhalter .platzhalter-caption {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+  /* gerahmte Variante (Willkommen-Portrait) */
+  .foto-platzhalter--frame {
+    box-shadow: var(--shadow-soft);
+    outline: 1px solid var(--sage);
+    outline-offset: 8px;
+  }
+  
+  
+  /* =========================================================================
+     TAGESABLAUF – Timeline
+     ========================================================================= */
+  .timeline {
+    position: relative;
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-left: 2.5rem;
+    list-style: none;
+  }
+  /* die sage-Linie */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.55rem;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    width: 2px;
+    background: var(--sage-line);
+  }
+  .timeline__item {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+  .timeline__item:last-child { padding-bottom: 0; }
+  /* Gold-Punkt-Marker */
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 0.35rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    margin-left: 0.13rem;
+    border-radius: 50%;
+    background: var(--sage);
+    box-shadow: 0 0 0 4px var(--creme);
+  }
+  .band-creme-dark .timeline__item::before { box-shadow: 0 0 0 4px var(--creme-dark); }
+  .timeline__time {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--forest);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .timeline__time svg { width: 1.4rem; height: 1.4rem; color: var(--sage); }
+  .timeline__title {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    margin-top: 0.15rem;
+    color: var(--ink);
+  }
+  .timeline__desc { color: color-mix(in srgb, var(--ink) 80%, transparent); margin-top: 0.2rem; }
+  
+  
+  /* =========================================================================
+     LOCATION & ANREISE
+     ========================================================================= */
+  .location__grid {
+    display: grid;
+    gap: 2rem;
+  }
+  .venue-card {
+    background: var(--paper);
+    border: 1px solid var(--sage-line);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .venue-card h3 { font-size: 1.7rem; }
+  .venue-card address {
+    font-style: normal;
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
+    margin-block: 0.6rem 1rem;
+  }
+  
+  .map-wrap {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--sage);
+    box-shadow: var(--shadow-soft);
+  }
+  .map-wrap iframe {
+    display: block;
+    width: 100%;
+    height: clamp(280px, 45vw, 420px);
+    border: 0;
+  }
+  .map-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.8rem 1.2rem; align-items: center; }
+  
+  .info-cards {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .info-card {
+    background: var(--paper);
+    border: 1px solid var(--sage-line);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+  }
+  .band-creme-dark .info-card { background: var(--paper); }
+  .info-card h4 {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .info-card h4 svg { width: 1.4rem; height: 1.4rem; color: var(--accent); }
+  
+  
+  /* =========================================================================
+     ÜBERNACHTUNG – Hotelkarten
+     ========================================================================= */
+  .hotel-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .hotel-card {
+    background: var(--paper);
+    border: 1px solid var(--sage-line);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .band-creme-dark .hotel-card { background: var(--paper); }
+  .hotel-card h3 { font-size: 1.45rem; }
+  .hotel-card .hotel-meta {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .hotel-card .hotel-contact { margin-top: 0.4rem; font-size: 0.98rem; }
+  .hotel-card a { word-break: break-word; }
+  .hotel-hint {
+    text-align: center;
+    margin-top: 1.8rem;
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--forest);
+  }
+  
+  
+  /* =========================================================================
+     DRESSCODE & GESCHENKE – zwei Karten
+     ========================================================================= */
+  .duo-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .duo-card {
+    background: var(--paper);
+    border: 1px solid var(--sage-line);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .band-creme-dark .duo-card { background: var(--paper); }
+  .duo-card h3 {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .duo-card h3 svg { width: 1.6rem; height: 1.6rem; color: var(--accent); }
+  
+  /* Farbtupfer-Reihe */
+  .swatches {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 1.2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
+  }
+  .swatch::before {
+    content: '';
+    width: 2.2rem; height: 2.2rem;
+    border-radius: 50%;
+    border: 1px solid var(--sage-line);
+    background: var(--dot, var(--sage));
+  }
+  
+  
+  /* =========================================================================
+     GALERIE
+     ========================================================================= */
+  /* Hinweis-Karte: Die Fotos werden per Link geteilt, es gibt kein Raster. */
+  .galerie-note {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+    padding: clamp(1.8rem, 4vw, 2.6rem);
+    background: var(--paper);
+    border: 1.5px dashed var(--sage);
+    border-radius: var(--radius-lg);
+  }
+  .galerie-note p { margin-inline: auto; }
+  .galerie-note__hint {
+    margin-top: 0.9rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+  
+  .galerie-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .galerie-item {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: block;
+    width: 100%;
+  }
+  .galerie-item .foto-platzhalter {
+    aspect-ratio: auto;
+    height: 100%;
+    border-radius: 0;
+    border: 0;
+  }
+  .galerie-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+  .galerie-item:hover img { transform: scale(1.04); }
+  .galerie-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(16 40 48 / 0);
+    transition: background 0.3s var(--ease);
+  }
+  .galerie-item:hover::after { background: rgb(16 40 48 / 0.12); }
+  /* eine Kachel über zwei Reihen für editorialen Rhythmus */
+  .galerie-item--tall { aspect-ratio: 3 / 4; }
+  
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgb(16 40 48 / 0.94);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    padding: 1.5rem;
+  }
+  .lightbox.is-open { display: flex; }
+  .lightbox__content {
+    max-width: min(90vw, 60rem);
+    max-height: 85vh;
+  }
+  .lightbox__content img,
+  .lightbox__content .foto-platzhalter {
+    max-width: 100%;
+    max-height: 85vh;
+    width: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lift);
+  }
+  .lightbox__content .foto-platzhalter {
+    width: min(70vw, 30rem);
+    aspect-ratio: 4 / 3;
+  }
+  .lightbox button {
+    position: absolute;
+    background: rgb(250 246 238 / 0.1);
+    border: 1px solid rgb(250 246 238 / 0.3);
+    color: var(--creme);
+    width: 3rem; height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s var(--ease);
+  }
+  .lightbox button:hover { background: rgb(250 246 238 / 0.22); }
+  .lightbox button svg { width: 1.4rem; height: 1.4rem; }
+  .lightbox__close { top: 1.2rem; right: 1.2rem; }
+  .lightbox__prev  { left: 1rem;  top: 50%; transform: translateY(-50%); }
+  .lightbox__next  { right: 1rem; top: 50%; transform: translateY(-50%); }
+  
+  
+  /* =========================================================================
+     RSVP – Statement-Band (forest)
+     ========================================================================= */
+  .rsvp-card {
+    background: var(--creme);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.8rem, 5vw, 3rem);
+    max-width: 44rem;
+    margin-inline: auto;
+    box-shadow: var(--shadow-lift);
+  }
+  .form-field { margin-bottom: 1.5rem; }
+  .form-field > label {
+    display: block;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .form-field .hint {
+    display: block;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    margin-top: 0.1rem;
+  }
+  .form-field input[type="text"],
+  .form-field input[type="email"],
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--sage);
+    border-radius: var(--radius);
+    padding: 0.75rem 0.9rem;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .form-field textarea { resize: vertical; min-height: 5rem; }
+  .form-field input:focus-visible,
+  .form-field select:focus-visible,
+  .form-field textarea:focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 1px;
+    border-color: var(--forest);
+  }
+  
+  /* Essenswunsch & Allergien pro Person: Name als Überschrift,
+     darunter Dropdown + Freitextfeld nebeneinander (mobil untereinander) */
+  .allergy-row { margin-bottom: 1.5rem; }
+  .menu-person {
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .menu-fields {
+    display: grid;
+    gap: 0.9rem 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .menu-fields { grid-template-columns: minmax(10rem, 2fr) 3fr; }
+  }
+  .menu-fields .form-field { margin-bottom: 0; }
+  .menu-fields .form-field > label {
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+  
+  /* Radio-Karten (Zusage / Absage) */
+  .radio-cards { display: grid; gap: 0.9rem; grid-template-columns: 1fr; }
+  .radio-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1rem 1.2rem;
+    background: var(--paper);
+    border: 1.5px solid var(--sage);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--forest);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .radio-card input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+  .radio-card:hover { border-color: var(--forest); }
+  .radio-card:has(input:checked) {
+    border-color: var(--forest);
+    background: color-mix(in srgb, var(--sage) 22%, var(--paper));
+    box-shadow: inset 0 0 0 1px var(--forest);
+  }
+  .radio-card:has(input:focus-visible) {
+    outline: 2px solid var(--forest);
+    outline-offset: 2px;
+  }
+  
+  /* Fieldsets (Teilnehmende Personen, Frühstück) */
+  .rsvp-card fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+  }
+  .rsvp-card legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    font-weight: 500;
+    color: var(--forest);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  .rsvp-card legend .hint {
+    display: block;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    margin-top: 0.2rem;
+  }
+  
+  /* Ausgeblendete Formular-Teile (Personen-Zeilen, Detail-Bereich): das
+     hidden-Attribut muss sich auch gegen display:flex/grid durchsetzen. */
+  .rsvp-card [hidden] { display: none !important; }
+  
+  /* Personen- & Allergie-Zeilen: kompakter Abstand innerhalb des Fieldsets */
+  .person-row,
+  .allergy-row { margin-bottom: 1rem; }
+  
+  /* Button „+ Person hinzufügen": Die Karte ist creme, obwohl die Sektion
+     dunkel (band-forest) ist – die Invertierung von .band-forest .btn-ghost
+     würde den Button hier unsichtbar machen, daher zurücksetzen. */
+  .rsvp-card .btn-ghost {
+    background-color: transparent;
+    background-image: none;
+    color: var(--forest);
+    border-color: var(--forest);
+  }
+  .rsvp-card .btn-ghost:hover {
+    background-color: var(--forest);
+    color: var(--creme);
+    border-color: var(--forest);
+  }
+  .add-person { margin-top: 0.2rem; }
+  
+  /* Checkbox (Foto-Einverständnis) */
+  .checkbox-field {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+  .checkbox-field input[type="checkbox"] {
+    margin-top: 0.25rem;
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--forest);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .checkbox-field label {
+    font-weight: 400;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .checkbox-field .hint {
+    display: block;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    margin-top: 0.35rem;
+  }
+  
+  .form-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .form-note {
+    text-align: center;
+    font-size: 0.9rem;
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
+    margin-top: 1rem;
+    max-width: none;
+  }
+  
+  
+  /* =========================================================================
+     FAQ – details/summary
+     ========================================================================= */
+  .faq {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+  .faq details {
+    border-bottom: 1px solid var(--sage-line);
+  }
+  .faq details:first-of-type { border-top: 1px solid var(--sage-line); }
+  /* Zwischenüberschriften der FAQ-Gruppen (vor / am Tag / nach der Feier) –
+     im Stil der goldenen Kapitälchen-Labels (.eyebrow) */
+  .faq__group-title {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 2.8rem 0 0.9rem;
+  }
+  .faq__group-title:first-child { margin-top: 0; }
+  .faq__group-title + details { border-top: 1px solid var(--sage-line); }
+  .faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.2rem 2.5rem 1.2rem 0;
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--forest);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  /* Gold Plus/Minus */
+  .faq summary::after {
+    content: '';
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    width: 1rem; height: 1rem;
+    background:
+      linear-gradient(var(--accent), var(--accent)) center / 100% 1.5px no-repeat,
+      linear-gradient(var(--accent), var(--accent)) center / 1.5px 100% no-repeat;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.3s var(--ease);
+  }
+  .faq details[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .faq__answer {
+    overflow: hidden;
+    padding-bottom: 1.2rem;
+    color: color-mix(in srgb, var(--ink) 85%, transparent);
+  }
+  .faq__answer p { margin-bottom: 0.6rem; }
+  /* sanftes Öffnen */
+  .faq details[open] .faq__answer {
+    animation: faqOpen 0.35s var(--ease);
+  }
+  @keyframes faqOpen {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  
+  /* =========================================================================
+     FOOTER
+     ========================================================================= */
+  .site-footer {
+    background: var(--forest);
+    background-image: var(--grad-band);
+    color: var(--creme);
+    text-align: center;
+    padding-block: clamp(3rem, 7vw, 4.5rem);
+  }
+  .site-footer .monogram {
+    color: var(--creme);
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  /* Footer-Inhalt zuverlässig mittig unter dem Blatt – auch auf breiten Screens */
+  .site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* Monstera-Blatt im Footer: heller Schein, damit es auf dem dunklen
+     Verlauf sichtbar bleibt */
+  .site-footer .monogram img {
+    width: 2.6rem;
+    filter: drop-shadow(0 0 6px rgb(250 246 238 / 0.55));
+  }
+  .site-footer .footer-names {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--creme);
+  }
+  .site-footer .footer-date {
+    letter-spacing: 0.1em;
+    color: color-mix(in srgb, var(--creme) 80%, transparent);
+    margin-top: 0.3rem;
+  }
+  .site-footer .footer-closing {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--accent-light);
+    margin: 1.5rem auto;
+  }
+  .footer-nav {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1.4rem;
+    margin-block: 1.5rem;
+  }
+  .footer-nav a {
+    color: color-mix(in srgb, var(--creme) 85%, transparent);
+    text-decoration: none;
+    font-size: 0.92rem;
+    letter-spacing: 0.03em;
+  }
+  .footer-nav a:hover { color: var(--accent-light); }
+  .footer-legal {
+    border-top: 1px solid rgb(155 175 155 / 0.25);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--creme) 65%, transparent);
+  }
+  .footer-legal a { color: color-mix(in srgb, var(--creme) 80%, transparent); }
+  .footer-legal a:hover { color: var(--accent-light); }
+  
+  
+  /* =========================================================================
+     DANKE-SEITE (danke.html)
+     ========================================================================= */
+  .danke {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--forest);
+    background-image: var(--grad-band);
+    color: var(--creme);
+  }
+  .danke__card {
+    max-width: 34rem;
+  }
+  .danke__card img {
+    width: 3.4rem;
+    margin-inline: auto;
+    filter: drop-shadow(0 0 8px rgb(250 246 238 / 0.5));
+  }
+  /* Button „Zurück zur Seite" in der hellen Akzentfarbe */
+  .danke .btn-ghost {
+    background-color: var(--accent-light);
+    background-image: none;
+    color: var(--forest);
+    border-color: var(--accent-light);
+  }
+  .danke .btn-ghost:hover {
+    background-color: var(--creme);
+    background-image: none;
+    color: var(--forest);
+    border-color: var(--creme);
+  }
+  .danke__card h1 {
+    color: var(--creme);
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    margin-block: 1.2rem 0.6rem;
+  }
+  .danke__card p {
+    max-width: none;
+    color: color-mix(in srgb, var(--creme) 88%, transparent);
+    margin-bottom: 2rem;
+  }
+  
+  
+  /* =========================================================================
+     6. MOTION / SCROLL-REVEAL
+     Der versteckte Ausgangszustand wird per JS-Klasse .js-reveal gesetzt,
+     damit Inhalte ohne JavaScript IMMER sichtbar bleiben.
+     ========================================================================= */
+  .js-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    will-change: opacity, transform;
+  }
+  .js-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .js-reveal { opacity: 1; transform: none; }
+    .scroll-cue { animation: none; }
+  }
+  
+  
+  /* =========================================================================
+     7. RESPONSIVE – Breakpoints
+     ========================================================================= */
+  @media (min-width: 40em) {
+    .info-cards  { grid-template-columns: 1fr 1fr; }
+    .hotel-grid  { grid-template-columns: repeat(2, 1fr); }
+    .duo-grid    { grid-template-columns: 1fr 1fr; }
+    .radio-cards { grid-template-columns: 1fr 1fr; }
+  
+    .galerie-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
+    }
+  }
+  
+  @media (min-width: 60em) {
+    .nav-desktop { display: block; }
+    .nav-toggle  { display: none; }
+  
+    /* Willkommen bleibt einspaltig – es gibt kein Brautpaar-Foto */
+  
+    .location__grid { grid-template-columns: 1fr; }
+    /* zwei Hotelkarten: zentriert und breiter statt drei schmaler Spalten */
+    .hotel-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 56rem;
+      margin-inline: auto;
+      gap: 2rem;
+    }
+  
+    /* Timeline abwechselnd links/rechts */
+    .timeline {
+      max-width: 60rem;
+      padding-left: 0;
+    }
+    .timeline::before { left: 50%; transform: translateX(-50%); }
+    .timeline__item { width: 50%; padding-bottom: 3rem; }
+    .timeline__item:nth-child(odd) {
+      left: 0;
+      padding-right: 3rem;
+      text-align: right;
+    }
+    .timeline__item:nth-child(even) {
+      left: 50%;
+      padding-left: 3rem;
+      text-align: left;
+    }
+    .timeline__item::before {
+      left: auto;
+      margin-left: 0;
+    }
+    .timeline__item:nth-child(odd)::before  { right: -0.42rem; left: auto; }
+    .timeline__item:nth-child(even)::before { left: -0.42rem; }
+    .timeline__item:nth-child(odd) .timeline__time  { flex-direction: row-reverse; }
+  
+    .galerie-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 16rem;
+    }
+    .galerie-item { aspect-ratio: auto; height: 100%; }
+    .galerie-item--tall { grid-row: span 2; }
+    .galerie-item--wide { grid-column: span 2; }
+  }
+  
