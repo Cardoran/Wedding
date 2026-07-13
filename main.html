@@ -79,6 +79,16 @@
 </head>
 <body>
 
+  <script>
+    // Prüfe, ob User authentifiziert ist
+    fetch('/.netlify/functions/check-auth')
+      .then(response => {
+        if (!response.ok) {
+          window.location.href = '/index.html';
+        }
+      });
+  </script>
+
   <!-- TECHNIK: Sprunglink für Tastatur-/Screenreader-Nutzer -->
   <a class="skip-link" href="#willkommen">Zum Inhalt springen</a>
 
