@@ -20,8 +20,8 @@ function getCookie(request, name) {
     // öffentlich zugängliche Seiten
     if (
       pathname === "/" ||
-      pathname === "/index.html" 
-    //   pathname.startsWith("/.netlify/functions/login")
+      pathname === "/index.html" ||
+      pathname.startsWith("/.netlify/functions/check-auth")
     ) {
       return context.next();
     }
