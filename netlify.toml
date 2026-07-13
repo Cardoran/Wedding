@@ -7,7 +7,7 @@
   from = "/"
   to = "/index.html"
   status = 200
-
+  
 [[edge_functions]]
   function = "auth"
-  path = "/main.html"
+  path = "/*"
