@@ -28,7 +28,7 @@ function getCookie(request, name) {
 
     const auth = getCookie(request, "auth");
   
-    if (auth !== "true") {
+    if (auth !== process.env.SECRET_AUTH) {
       return Response.redirect(
         new URL("/index.html", request.url),
         302

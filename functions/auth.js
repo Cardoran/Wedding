@@ -8,6 +8,7 @@ exports.handler = async (event, context) => {
 
   // 🔑 Passwort aus Environment Variable lesen
   const CORRECT_PASSWORD = process.env.LOGIN_PASSWORD;
+  const SECRET_AUTH = process.env.SECRET_AUTH;
 
   if (!CORRECT_PASSWORD) {
     return {
@@ -23,7 +24,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        "Set-Cookie": `auth=true; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
+        "Set-Cookie": `auth=`+SECRET_AUTH+`; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ success: true })
