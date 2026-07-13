@@ -334,7 +334,6 @@
        Start
     --------------------------------------------------------------------- */
     document.addEventListener('DOMContentLoaded', function () {
-      initPasswordGate();
       initCountdown();
       initStickyHeader();
       initMobileMenu();
