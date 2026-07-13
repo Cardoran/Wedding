@@ -21,7 +21,7 @@ function getCookie(request, name) {
     if (
       pathname === "/" ||
       pathname === "/index.html" ||
-      pathname.startsWith("/.netlify/functions/check-auth")
+      pathname.startsWith("/functions/check-auth")
     ) {
       return context.next();
     }
