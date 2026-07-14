@@ -103,7 +103,7 @@
        Akzent-Texte auf hellem Grund gibt es --accent (#44584C, abgedunkeltes
        Salbei, 5.1:1 selbst auf Greige). Reines Salbei ist NUR dekorativ. */
     --creme:        #FAF6EE;  /* Seitenhintergrund, Text auf dunklem Grund */
-    --creme-dark:   #CECECE;  /* Akzent 1 (Greige): Sektionsbänder, Karten  #E5D1D2 */
+    --creme-dark:   #e5d1d2b6;  /* Akzent 1 (Greige): Sektionsbänder, Karten  #E5D1D2 */
     --slate:        #BA9699;  /* Akzent 2 (Altrosa): siehe --forest */
     --sage:         #BA9699;  /* Akzent 3 (Salbei): Linien, feine Rahmen, Punkte */
     --forest:       #825D6D;  /* primär (= Schiefer): Überschriften, Buttons, Links */
