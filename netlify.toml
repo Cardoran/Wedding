@@ -10,5 +10,5 @@
   force = true
 
 [[edge_functions]]
-  function = "auth"
+  function = "check_cookie"
   path = "/*"
