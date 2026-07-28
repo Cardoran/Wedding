@@ -9,24 +9,6 @@
   status = 200
   force = true
 
-[[redirects]]
-  from = "/index*"
-  to = "/index.html"
-  status = 200
-  force = true
-  
-[[redirects]]
-  from = "/main*"
-  to = "/main.html"
-  status = 200
-  force = true
-  
-[[redirects]]
-  from = "/*"
-  to = "/blocked"
-  status = 403
-  force = true
-
 [[edge_functions]]
   function = "auth"
   path = "/*"
