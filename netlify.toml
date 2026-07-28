@@ -16,13 +16,13 @@
   force = true
 
 [[redirects]]
-  from = "/index*"
+  from = "/index.html"
   to = "/index.html"
   status = 200
   force = true
   
 [[redirects]]
-  from = "/main*"
+  from = "/main.html"
   to = "/main.html"
   status = 200
   force = true
