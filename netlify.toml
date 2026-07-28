@@ -4,8 +4,24 @@
 
 # Automatische Redirects
 [[redirects]]
+  from = "/*"
+  to = "/blocked"
+  status = 403
+  force = true
+
+[[redirects]]
   from = "/"
   to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/index*"
+  to = "/index.html"
+  status = 200
+  
+[[redirects]]
+  from = "/main*"
+  to = "/main.html"
   status = 200
   
 [[edge_functions]]
