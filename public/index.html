@@ -160,16 +160,18 @@
 <body>
 
 
-  <div class="login-card">
-    <h1>Willkommen zur Hochzeit</h1>
-    <p class="login-card__hint">Bitte gib das Passwort ein:</p>
+  <main class="login-page">
+    <div class="login-card">
+      <h1>Willkommen zur Hochzeit</h1>
+      <p class="login-card__hint">Bitte gib das Passwort ein:</p>
 
-    <form id="login-form">
-      <input type="password" id="password" placeholder="Passwort" required />
-      <button type="submit">Eintreten</button>
-      <p id="error" class="login-card__error"></p>
-    </form>
-  </div>
+      <form id="login-form">
+        <input type="password" id="password" placeholder="Passwort" required />
+        <button type="submit">Eintreten</button>
+        <p id="error" class="login-card__error"></p>
+      </form>
+    </div>
+  </main>
 
   <script>
     document.getElementById('login-form').addEventListener('submit', async (e) => {
