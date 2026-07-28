@@ -138,7 +138,8 @@
     .login-card button:hover,
     .login-card button:focus-visible {
       background: var(--grad-btn-hover);
-      transform: translateY(-1px);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px var(--altrosa-dark);
     }
 
     .login-card button:disabled {
@@ -167,7 +168,7 @@
 
       <form id="login-form">
         <input type="password" id="password" placeholder="Passwort" required />
-        <button type="submit">Eintreten</button>
+        <button id="login-button" type="submit">Eintreten</button>
         <p id="error" class="login-card__error"></p>
       </form>
     </div>
@@ -178,6 +179,10 @@
       e.preventDefault();
       const password = document.getElementById('password').value;
       const error = document.getElementById('error');
+      const button = document.getElementById('login-button');
+
+      button.disabled = true;
+      error.textContent = '';
 
       try {
         const response = await fetch('/.netlify/functions/auth', {
@@ -196,6 +201,8 @@
       } catch (err) {
         error.textContent = 'Fehler beim Login';
       }
+
+      button.disabled = false;
     });
   </script>
 

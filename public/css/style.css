@@ -117,7 +117,7 @@
     /* Farbverläufe (Fading statt Einfarbigkeit) */
     --grad-band:    linear-gradient(135deg, var(--forest) 0%, var(--slate) 100%);
     --grad-btn:     linear-gradient(135deg, var(--slate) 0%, var(--slate) 100%);
-    --grad-btn-hover: linear-gradient(135deg, var(--forest) 0%, var(--forest) 100%);
+    --grad-btn-hover: linear-gradient(135deg, var(--forest) 0%, var(--sage) 100%);
     --grad-text:    linear-gradient(120deg, var(--forest) 0%, var(--forest) 55%, var(--forest) 100%);
   
     /* abgeleitete / halbtransparente Töne */
