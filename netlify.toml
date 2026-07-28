@@ -4,12 +4,6 @@
 
 # Automatische Redirects
 [[redirects]]
-  from = "/*"
-  to = "/blocked"
-  status = 403
-  force = true
-
-[[redirects]]
   from = "/"
   to = "/index.html"
   status = 200
@@ -27,6 +21,12 @@
   status = 200
   force = true
   
+[[redirects]]
+  from = "/*"
+  to = "/blocked"
+  status = 403
+  force = true
+
 [[edge_functions]]
   function = "auth"
   path = "/*"
