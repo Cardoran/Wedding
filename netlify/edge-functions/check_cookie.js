@@ -21,6 +21,9 @@ function getCookie(request, name) {
     if (
       pathname === "/" ||
       pathname === "/index.html" ||
+      pathname === "/css/*" ||
+      pathname === "/fonts/*" ||
+      pathname === "/images/*" ||
       pathname.startsWith("/.netlify/functions/auth")
     ) {
       return context.next();
